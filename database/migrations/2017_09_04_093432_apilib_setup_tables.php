@@ -58,6 +58,43 @@ class ApilibSetupTables extends Migration
             $table->primary(['permission_id', 'role_id']);
         });
 
+        
+        // Create table for storing group
+        Schema::create('groups', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name')->unique();
+            $table->string('display_name')->nullable();
+            $table->string('description')->nullable();
+            $table->timestamps();
+        });
+
+        // Create table for associating permissions to roles (Many-to-Many)
+        Schema::create('permission_group', function (Blueprint $table) {
+            $table->integer('group_id')->unsigned();
+            $table->integer('permission_id')->unsigned();
+            
+            $table->foreign('group_id')->references('id')->on('groups')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('permission_id')->references('id')->on('permissions')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->primary(['permission_id', 'group_id']);
+        });
+        
+        // Create table for associating permissions to roles (Many-to-Many)
+        Schema::create('group_role', function (Blueprint $table) {
+            $table->integer('role_id')->unsigned();
+            $table->integer('group_id')->unsigned();
+            
+            $table->foreign('role_id')->references('id')->on('roles')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('group_id')->references('id')->on('groups')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->primary(['group_id', 'role_id']);
+        });
+        
+        
         DB::commit();
     }
 

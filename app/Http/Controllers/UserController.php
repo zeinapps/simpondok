@@ -35,10 +35,18 @@ class UserController extends Controller{
 
         if ($validator->fails()) {
             Alert::danger($validator->errors());
-            return back()->withInput();
+            return back()->withInput()->withErrors($validator);
         }
         
         if(!$request->id){
+            $validator = Validator::make($request->all(), [
+                'password' => 'required|confirmed',
+            ]);
+            if ($validator->fails()) {
+                Alert::danger($validator->errors());
+                return back()->withInput()->withErrors($validator);
+            }
+            
             $exists = User::where('email',$request->email)->first();
             if($exists){
                 Alert::warning("Email $request->email sudah ada");

@@ -44,7 +44,7 @@
         <div class="form-group">
             <label for="password" class="col-md-4 control-label">Password:</label>
             <div class="col-md-6">
-                <input id="passsword" type="text" class="form-control" name="password" value="{{ isset($password) ? $password : old('password') }}"  autofocus>
+                <input id="password" type="password" class="form-control" name="password" value="{{ isset($password) ? $password : old('password') }}"  autofocus>
                 @if ($errors->has('password'))
                 <span class="help-block">
                     <strong>{{ $errors->first('password') }}</strong>
@@ -55,7 +55,7 @@
         <div class="form-group">
             <label for="password_confirmation" class="col-md-4 control-label">Ulangi Password:</label>
             <div class="col-md-6">
-                <input id="password_confirmation" type="text" class="form-control" name="password_confirmation" value="{{ isset($password_confirmation) ? $password_confirmation : old('password_confirmation') }}"  autofocus>
+                <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" value="{{ isset($password_confirmation) ? $password_confirmation : old('password_confirmation') }}"  autofocus>
                 @if ($errors->has('password_confirmation'))
                 <span class="help-block">
                     <strong>{{ $errors->first('password_confirmation') }}</strong>

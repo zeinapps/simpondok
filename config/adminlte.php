@@ -121,6 +121,21 @@ return [
             'label'       => 4,
             'label_color' => 'success',
         ],
+        [
+            'text'        => 'Roles',
+            'url'         => 'admin/role',
+            'icon'        => 'user',
+        ],
+        [
+            'text'        => 'Groups',
+            'url'         => 'admin/group',
+            'icon'        => 'user',
+        ],
+        [
+            'text'        => 'Permission',
+            'url'         => 'admin/permission',
+            'icon'        => 'user',
+        ],
         'ACCOUNT SETTINGS',
         [
             'text' => 'Profile',

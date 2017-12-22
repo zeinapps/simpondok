@@ -50,10 +50,10 @@ trait ControllerTrait{
         $expired = Lib::getExpiredCache();
         if(Cache::getStore() instanceof TaggableStore) {
             $result = Cache::tags($tagCache)->remember(URL::full().'_paginate_'.$key, $expired, function () use ($model) {
-                return $model->paginate(config('apilib.paginate'));
+                return $model->orderBy('created_at','DESC')->paginate(config('apilib.paginate'));
             });
         }else{   
-            $result = $model->paginate(config('apilib.paginate'));
+            $result = $model->orderBy('created_at','DESC')->paginate(config('apilib.paginate'));
         }
         return $result;
     }
