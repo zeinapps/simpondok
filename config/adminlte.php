@@ -132,9 +132,23 @@ return [
             'icon'        => 'user',
         ],
         [
-            'text'        => 'Permission',
-            'url'         => 'admin/permission',
+            'text'        => 'Siswa',
+            'url'         => 'admin/siswa',
             'icon'        => 'user',
+        ],
+        [
+            'text'    => 'Master',
+            'icon'    => 'share',
+            'submenu' => [
+                [
+                    'text' => 'Agama',
+                    'url'  => 'admin/agama',
+                ],
+                [
+                    'text' => 'Status Keluarga',
+                    'url'  => 'admin/status_keluarga',
+                ],
+            ],
         ],
         'ACCOUNT SETTINGS',
         [
@@ -232,7 +246,7 @@ return [
     */
 
     'plugins' => [
-        'datatables' => true,
-        'select2'    => true,
+//        'datatables' => true,
+//        'select2'    => true,
     ],
 ];

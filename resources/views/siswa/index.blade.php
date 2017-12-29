@@ -3,7 +3,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-<h1>User</h1>
+<h1>Siswa</h1>
 @stop
 
 @section('content')
@@ -13,7 +13,7 @@
         <h3 class="box-title">List Data</h3>
 
         <div class="box-tools">
-            <form action="{{ route('permission.user.index') }}" method="GET">
+            <form action="{{ route('permission.siswa.index') }}" method="GET">
                 <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="s" class="form-control pull-right" placeholder="Search" value="{{ isset($s) ? $s : old('s') }}">
 
@@ -22,7 +22,7 @@
                     </div>
                     <div class="input-group-btn">
                         <button type="button" class="btn btn-default pull-right"
-                                onclick="location.href ='{{ route('permission.user.add') }}'">
+                                onclick="location.href ='{{ route('permission.siswa.add') }}'">
                             <i class="fa fa-plus"></i>
                         </button>
                     </div>
@@ -36,27 +36,19 @@
             <tbody>
                 <tr>
                     <th>Nama</th>
-                    <th>Email</th>
+                    <th>No Induk</th>
                     <th></th>
                 </tr>
                 @foreach ($data as $v)
                 <tr>
                     <td>
-                        {{ $v->name }}
+                        {{ $v->nama }}
                     </td>
                     <td>
-                        {{ $v->email }}
+                        {{ $v->nomor_induk }}
                     </td>
-
                     <td>
-                        <a class="btn btn-warning btn-xs" href="{{ route('permission.user.edit',['id' => $v->id ]) }}" style="float: left; margin-right: 5px;">Edit</a>
-                       <!--  <a class="btn btn-danger btn-xs" href="{{ route('permission.user.edit',['id' => $v->id ]) }}" style="float: left; margin-right: 5px;">Reset</a>
-                                                   <form action="{{ url('/user/'.$v->id ) }}" method="POST">
-                                                        {{ csrf_field() }}
-                                                        <button type="submit" class="btn btn-danger btn-xs">
-                                                            Hapus
-                                                        </button>
-                                                    </form>-->
+                        <a class="btn btn-warning btn-xs" href="{{ route('permission.siswa.edit',['id' => $v->id ]) }}" style="float: left; margin-right: 5px;">Edit</a>
                     </td>
 
                 </tr>

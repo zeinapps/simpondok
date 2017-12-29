@@ -3,7 +3,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-<h1>User INDEx</h1>
+<h1>Group</h1>
 @stop
 
 @section('content')
