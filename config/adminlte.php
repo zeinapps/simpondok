@@ -145,8 +145,8 @@ return [
                     'url'  => 'admin/agama',
                 ],
                 [
-                    'text' => 'Status Keluarga',
-                    'url'  => 'admin/status_keluarga',
+                    'text' => 'Mata Pelajaran',
+                    'url'  => 'admin/mapel',
                 ],
             ],
         ],

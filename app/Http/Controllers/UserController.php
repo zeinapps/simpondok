@@ -8,6 +8,7 @@ use Validator;
 use App\Traits\ControllerTrait;
 use App\User;
 use Alert;
+use DB;
 
 class UserController extends Controller{
     use ControllerTrait;

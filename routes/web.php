@@ -55,4 +55,9 @@ Route::group(['prefix'=> 'admin','middleware' => []], function () {
     Route::get('/siswa/form', ['as' => 'permission.siswa.add', 'display_name'=>'form Add Siswa', 'description'=>'Melihat form Siswa', 'uses' => 'SiswaController@add']);
     Route::get('/siswa/form/{id}', ['as' => 'permission.siswa.edit', 'display_name'=>'form Edit Siswa', 'description'=>'Melihat form Siswa', 'uses' => 'SiswaController@edit']);
     
+    Route::get('/mapel', ['as' => 'permission.mapel.index', 'display_name'=>'List Mapel', 'description'=>'Melihat Daftar Mapel', 'uses' => 'Master\MapelController@index']);
+    Route::post('/mapel', ['as' => 'permission.mapel.store', 'display_name'=>'Store Mapel', 'description'=>'Store Mapel', 'uses' => 'Master\MapelController@store']);
+    Route::get('/mapel/form', ['as' => 'permission.mapel.add', 'display_name'=>'form Add Mapel', 'description'=>'Melihat form Mapel', 'uses' => 'Master\MapelController@add']);
+    Route::get('/mapel/form/{id}', ['as' => 'permission.mapel.edit', 'display_name'=>'form Edit Mapel', 'description'=>'Melihat form Mapel', 'uses' => 'Master\MapelController@edit']);
+    
 });
