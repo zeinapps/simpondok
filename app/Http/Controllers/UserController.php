@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Traits\ControllerTrait;
 use App\User;
+use App\Models\Role;
 use Alert;
 use DB;
 
@@ -22,6 +23,7 @@ class UserController extends Controller{
         }else{
             $model = new User();
         }
+        $model->with(['roles']);
         $result = $this->paginateFromCache($tag, $model, $key);
         
         return view('user/index', ['data' => $result, 's' => $s ]);
@@ -32,41 +34,52 @@ class UserController extends Controller{
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'confirmed',
+            'roles' => 'required',
         ]);
-
+        
         if ($validator->fails()) {
             Alert::danger($validator->errors());
             return back()->withInput()->withErrors($validator);
         }
-        
-        if(!$request->id){
-            $validator = Validator::make($request->all(), [
-                'password' => 'required|confirmed',
-            ]);
-            if ($validator->fails()) {
-                Alert::danger($validator->errors());
-                return back()->withInput()->withErrors($validator);
+        DB::beginTransaction();
+        try {
+            if(!$request->id){
+                $validator = Validator::make($request->all(), [
+                    'password' => 'required|confirmed',
+                ]);
+                if ($validator->fails()) {
+                    Alert::danger($validator->errors());
+                    return back()->withInput()->withErrors($validator);
+                }
+
+                $exists = User::where('email',$request->email)->first();
+                if($exists){
+                    Alert::warning("Email $request->email sudah ada");
+                    return back()->withInput();
+                }
+                $new_user = new User();
+                $new_user->password = bcrypt($request->password); 
+            }else{
+                $new_user = User::find($request->id);
+                if(!$new_user){
+                    Alert::warning("Failed ID");
+                    return back()->withInput();
+                }
             }
+
+            $new_user->name = $request->name;
+            $new_user->email = $request->email; 
+            // optional
+            $new_user->save();
+            $new_user->detachRoles();
+            $new_user->attachRoles($request->roles);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            Alert::danger($e->getMessage());
             
-            $exists = User::where('email',$request->email)->first();
-            if($exists){
-                Alert::warning("Email $request->email sudah ada");
-                return back()->withInput();
-            }
-            $new_user = new User();
-            $new_user->password = bcrypt($request->password); 
-        }else{
-            $new_user = User::find($request->id);
-            if(!$new_user){
-                Alert::warning("Failed ID");
-                return back()->withInput();
-            }
+            return back()->withInput()->withErrors($e->getMessage());
         }
-        
-        $new_user->name = $request->name;
-        $new_user->email = $request->email; 
-        // optional
-        $new_user->save();
         $this->clearCache('users');
         Alert::success('Add/Update Data berhasil');
         return redirect()->route('permission.user.index');
@@ -74,12 +87,28 @@ class UserController extends Controller{
     }
     
     public function edit($id){
-        $query = User::find($id)->toArray();
-        return view('user/form', array_merge($query, []));
+        $query = User::find($id);
+        $user_role = [];
+        foreach ($query->roles as $key => $value) {
+            $user_role[] = $value->id;
+        }
+        $tagCache = ['roles'];
+        $key = '_get_all_roles';
+        $role = [];
+        foreach ($this->getFromCache($tagCache,new Role,$key) as $v) {
+            $r = $v;
+            $r->cheked = in_array($v->id, $user_role);
+            $role[] = $r;
+        }
+        return view('user/form', array_merge($query->toArray(), ['roles' => $role]));
     }
     
     public function add(){ 
-        return view('user/form');
+        $tagCache = ['roles'];
+        $key = '_get_all_roles';
+        $role = $this->getFromCache($tagCache,new Role,$key);
+        
+        return view('user/form',['roles' => $role]);
     }
     
     public function delete($id){ 

@@ -40,6 +40,19 @@
                 @endif
             </div>
         </div>
+        <div class="form-group">
+            <label for="email" class="col-md-4 control-label">Role:</label>
+            <div class="col-md-6">
+                @foreach ($roles as $r)
+                
+                <label>   {{ Form::checkbox('roles[]', $r->id, isset($r->cheked)?$r->cheked:false, ['class' => 'minimal']) }}
+                   {{$r->display_name}} 
+                </label>
+                <br>
+                     
+                @endforeach
+            </div>
+        </div>
         @if (!isset($id))
         <div class="form-group">
             <label for="password" class="col-md-4 control-label">Password:</label>

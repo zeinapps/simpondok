@@ -148,6 +148,16 @@ return [
                     'text' => 'Mata Pelajaran',
                     'url'  => 'admin/mapel',
                 ],
+                
+                [
+                    'text' => 'Tingkat/Kelas',
+                    'url'  => 'admin/tingkat',
+                ],
+                
+                [
+                    'text' => 'Ruang Kelas',
+                    'url'  => 'admin/kelas',
+                ],
             ],
         ],
         'ACCOUNT SETTINGS',

@@ -60,4 +60,14 @@ Route::group(['prefix'=> 'admin','middleware' => []], function () {
     Route::get('/mapel/form', ['as' => 'permission.mapel.add', 'display_name'=>'form Add Mapel', 'description'=>'Melihat form Mapel', 'uses' => 'Master\MapelController@add']);
     Route::get('/mapel/form/{id}', ['as' => 'permission.mapel.edit', 'display_name'=>'form Edit Mapel', 'description'=>'Melihat form Mapel', 'uses' => 'Master\MapelController@edit']);
     
+    Route::get('/tingkat', ['as' => 'permission.tingkat.index', 'display_name'=>'List Tingkat', 'description'=>'Melihat Daftar Tingkat', 'uses' => 'Master\TingkatController@index']);
+    Route::post('/tingkat', ['as' => 'permission.tingkat.store', 'display_name'=>'Store Tingkat', 'description'=>'Store Tingkat', 'uses' => 'Master\TingkatController@store']);
+    Route::get('/tingkat/form', ['as' => 'permission.tingkat.add', 'display_name'=>'form Add Tingkat', 'description'=>'Melihat form Tingkat', 'uses' => 'Master\TingkatController@add']);
+    Route::get('/tingkat/form/{id}', ['as' => 'permission.tingkat.edit', 'display_name'=>'form Edit Tingkat', 'description'=>'Melihat form Tingkat', 'uses' => 'Master\TingkatController@edit']);
+    
+    Route::get('/kelas', ['as' => 'permission.kelas.index', 'display_name'=>'List Kelas', 'description'=>'Melihat Daftar Kelas', 'uses' => 'Master\KelasController@index']);
+    Route::post('/kelas', ['as' => 'permission.kelas.store', 'display_name'=>'Store Kelas', 'description'=>'Store Kelas', 'uses' => 'Master\KelasController@store']);
+    Route::get('/kelas/form', ['as' => 'permission.kelas.add', 'display_name'=>'form Add Kelas', 'description'=>'Melihat form Kelas', 'uses' => 'Master\KelasController@add']);
+    Route::get('/kelas/form/{id}', ['as' => 'permission.kelas.edit', 'display_name'=>'form Edit Kelas', 'description'=>'Melihat form Kelas', 'uses' => 'Master\KelasController@edit']);
+    
 });

@@ -12,10 +12,7 @@ use App\Models\Config;
 use Auth;
 
 trait ControllerTrait{
-    public function getCurrentUser(){   
-        return $id_paspor = Cas::getCurrentUser();
-    }
-    
+  
     public function sendData($data=[],$log=false,$message="success"){   
         return Lib::sendData($data, $message, $log);
     }
