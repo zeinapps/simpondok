@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\CacheModelTrait;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Cache\TaggableStore;
-use App\Lib;
+use App\Lib\Lib;
 
 class Group extends Model
 {

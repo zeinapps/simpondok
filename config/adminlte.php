@@ -110,55 +110,73 @@ return [
     'menu' => [
         'MAIN NAVIGATION',
         [
-            'text' => 'User',
-            'url'  => 'admin/user',
-            'can'  => 'manage-user',
+            'text'        => 'Dasboard',
+            'url'         => 'admin',
+            'icon'        => 'dashboard',
         ],
-        [
-            'text'        => 'Users',
-            'url'         => 'admin/user',
-            'icon'        => 'user',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
-        [
-            'text'        => 'Roles',
-            'url'         => 'admin/role',
-            'icon'        => 'user',
-        ],
-        [
-            'text'        => 'Groups',
-            'url'         => 'admin/group',
-            'icon'        => 'user',
-        ],
-        [
-            'text'        => 'Siswa',
-            'url'         => 'admin/siswa',
-            'icon'        => 'user',
-        ],
+        
         [
             'text'    => 'Master',
             'icon'    => 'share',
+            'permission' => [
+                'permission.mapel.index',
+                'permission.tingkat.index',
+                'permission.kelas.index'
+            ],
             'submenu' => [
-                [
-                    'text' => 'Agama',
-                    'url'  => 'admin/agama',
-                ],
                 [
                     'text' => 'Mata Pelajaran',
                     'url'  => 'admin/mapel',
+                    'permission'  => 'permission.mapel.index',
                 ],
                 
                 [
                     'text' => 'Tingkat/Kelas',
                     'url'  => 'admin/tingkat',
+                    'permission'  => 'permission.tingkat.index',
                 ],
                 
                 [
                     'text' => 'Ruang Kelas',
                     'url'  => 'admin/kelas',
+                    'permission'  => 'permission.kelas.index',
                 ],
             ],
+        ],
+        [
+            'text'    => 'Permissions',
+            'icon'    => 'share',
+            'permission' => [
+                'permission.role.index',
+                'permission.group.index',
+            ],
+            'submenu' => [
+                [
+                    'text'        => 'Roles',
+                    'url'         => 'admin/role',
+                    'icon'        => 'user',
+                    'permission'  => 'permission.role.index',
+                ],
+                [
+                    'text'        => 'Groups',
+                    'url'         => 'admin/group',
+                    'icon'        => 'user',
+                    'permission'  => 'permission.group.index',
+                ],
+            ],
+        ],
+        [
+            'text'        => 'Users',
+            'url'         => 'admin/user',
+            'icon'        => 'user',
+//            'label'       => 4,
+//            'label_color' => 'success',
+            'permission'  => 'permission.user.index',
+        ],
+        [
+            'text'        => 'Siswa',
+            'url'         => 'admin/siswa',
+            'icon'        => 'user',
         ],
         'ACCOUNT SETTINGS',
         [
@@ -242,6 +260,7 @@ return [
         JeroenNoten\LaravelAdminLte\Menu\Filters\SubmenuFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
+        App\Lib\MyMenuFilter::class,
     ],
 
     /*

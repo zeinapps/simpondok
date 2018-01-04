@@ -3,7 +3,7 @@ namespace App\Traits;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Cache\TaggableStore;
-use App\Lib;
+use App\Lib\Lib;
 
 trait ApilibRoleTrait{
     
@@ -17,14 +17,9 @@ trait ApilibRoleTrait{
         return $this->belongsToMany('App\Models\Permission', 'permission_role', 'role_id', 'permission_id');
     }
     
-    public function permissions_instansi()
+    public function groups()
     {
-        return $this->belongsToMany('App\Models\Permission', 'permission_role_instansi', 'role_id', 'permission_id');
-    }
-    
-    public function permissions_kelas()
-    {
-        return $this->belongsToMany('App\Models\Permission', 'permission_role_kelas', 'role_id', 'permission_id');
+        return $this->belongsToMany(\App\Models\Group::class);
     }
     
     public function users()
@@ -37,6 +32,7 @@ trait ApilibRoleTrait{
         $key = __CLASS__.$this->{$this->primaryKey}.__FUNCTION__.$permissionname;
         if(Cache::getStore() instanceof TaggableStore) {
             return Cache::tags('permission_role')->remember($key, Lib::getExpiredCache(), function () use ($permissionname) {
+                
                 if($this->permissions()->where('name',$permissionname)->first()){
                     return true;
                 }else{
@@ -52,52 +48,34 @@ trait ApilibRoleTrait{
         }
     }
     
-    public function hasPermission_instansi($permissionname, $id_instansi)
-    {
-        $key = __CLASS__.$this->{$this->primaryKey}.__FUNCTION__.$permissionname;
-        if(Cache::getStore() instanceof TaggableStore) {
-            return Cache::tags('permission_role_instansi')->remember($key, Lib::getExpiredCache(), function () use ($permissionname, $id_instansi) {
-                if($this->permissions_instansi()
-                        ->where('id_instansi',$id_instansi)
-                        ->where('name',$permissionname)->first()){
-                    return true;
-                }else{
-                    return false;
-                }
-            });
-        }else{
-            if($this->permissions_instansi()
-                    ->where('id_instansi',$id_instansi)
-                    ->where('name',$permissionname)->first()){
-                return true;
-            }else{
-                return false;
-            }
-        }
-    }
     
-    public function hasPermission_kelas($permissionname, $id_kelas)
+    public function can($permission_name)
     {
-        $key = __CLASS__.$this->{$this->primaryKey}.__FUNCTION__.$permissionname;
-        if(Cache::getStore() instanceof TaggableStore) {
-            return Cache::tags('permission_role_instansi')->remember($key, Lib::getExpiredCache(), function () use ($permissionname, $id_kelas) {
-                if($this->permissions_kelas()
-                        ->where('id_kelas',$id_kelas)
-                        ->where('name',$permissionname)->first()){
-                    return true;
-                }else{
-                    return false;
+
+        $key = __CLASS__ . $this->{$this->primaryKey} . __FUNCTION__ . $permission_name;
+        $tag = ['group_role', 'permission_group'];
+        if (Cache::getStore() instanceof TaggableStore) {
+            return Cache::tags($tag)->remember($key, Lib::getExpiredCache(), function () use ($permission_name) {
+                $groups = $this->groups()->get();
+
+                foreach ($groups as $group) {
+                    if ($group->hasPermission($permission_name)) {
+                        return true;
+                    }
                 }
-            });
-        }else{
-            if($this->permissions_kelas()
-                    ->where('id_kelas',$id_kelas)
-                    ->where('name',$permissionname)->first()){
-                return true;
-            }else{
                 return false;
+            });
+        } else {
+            $groups = $this->groups()->get();
+
+            foreach ($groups as $group) {
+                if ($group->hasPermission($permission_name)) {
+                    return true;
+                }
             }
+            return false;
         }
+
     }
     
     public function attachPermission($permission)

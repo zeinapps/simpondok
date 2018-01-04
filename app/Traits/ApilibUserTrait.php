@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Cache\TaggableStore;
-use App\Lib;
+use App\Lib\Lib;
 
 trait ApilibUserTrait
 {
@@ -36,13 +36,20 @@ trait ApilibUserTrait
 
     }
 
-    public function can($permission_name, $requireAll = false)
+    public function canDo($permission_name)
     {
+        if($this->hasRole('administrator')){
+            return true;
+        }
         $key = __CLASS__ . $this->{$this->primaryKey} . __FUNCTION__ . $permission_name;
         if (Cache::getStore() instanceof TaggableStore) {
             return Cache::tags('users')->remember($key, Lib::getExpiredCache(), function () use ($permission_name) {
                 foreach ($this->roles as $role) {
                     if ($role->hasPermission($permission_name)) {
+                        return true;
+                    }
+                     //cek dari group
+                    if ($role->can($permission_name)) {
                         return true;
                     }
                 }

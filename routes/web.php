@@ -15,11 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/401', function () {
+    return view('401');
+});
+
 Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix'=> 'admin','middleware' => []], function () {
+Route::group(['prefix'=> 'admin','middleware' => ['auth','auth.route']], function () {
     Route::get('/', ['as' => 'dashboard', 'display_name'=>'Lihat Dashboard', 'description'=>'Melihat Dashboard', 'uses' => 'HomeController@index']);
     
     Route::get('/user', ['as' => 'permission.user.index', 'display_name'=>'List User', 'description'=>'Melihat Daftar User', 'uses' => 'UserController@index']);
@@ -45,11 +49,11 @@ Route::group(['prefix'=> 'admin','middleware' => []], function () {
     Route::get('/group/permission/{id}', ['as' => 'permission.group.permission', 'display_name'=>'form Edit Group Permission', 'description'=>'Melihat form Group Permission', 'uses' => 'GroupController@editpermission']);
     Route::post('/group/permission', ['as' => 'permission.group.storepermission', 'display_name'=>'Store Group Permission', 'description'=>'Store Group Permission', 'uses' => 'GroupController@permission']);
     
-    Route::get('/agama', ['as' => 'permission.agama.index', 'display_name'=>'List Agama', 'description'=>'Melihat Daftar Agama', 'uses' => 'Master\AgamaController@index']);
-    Route::post('/agama', ['as' => 'permission.agama.store', 'display_name'=>'Store Agama', 'description'=>'Store Agama', 'uses' => 'Master\AgamaController@store']);
-    Route::get('/agama/form', ['as' => 'permission.agama.add', 'display_name'=>'form Add Agama', 'description'=>'Melihat form Agama', 'uses' => 'Master\AgamaController@add']);
-    Route::get('/agama/form/{id}', ['as' => 'permission.agama.edit', 'display_name'=>'form Edit Agama', 'description'=>'Melihat form Agama', 'uses' => 'Master\AgamaController@edit']);
-    
+//    Route::get('/agama', ['as' => 'permission.agama.index', 'display_name'=>'List Agama', 'description'=>'Melihat Daftar Agama', 'uses' => 'Master\AgamaController@index']);
+//    Route::post('/agama', ['as' => 'permission.agama.store', 'display_name'=>'Store Agama', 'description'=>'Store Agama', 'uses' => 'Master\AgamaController@store']);
+//    Route::get('/agama/form', ['as' => 'permission.agama.add', 'display_name'=>'form Add Agama', 'description'=>'Melihat form Agama', 'uses' => 'Master\AgamaController@add']);
+//    Route::get('/agama/form/{id}', ['as' => 'permission.agama.edit', 'display_name'=>'form Edit Agama', 'description'=>'Melihat form Agama', 'uses' => 'Master\AgamaController@edit']);
+//    
     Route::get('/siswa', ['as' => 'permission.siswa.index', 'display_name'=>'List Siswa', 'description'=>'Melihat Daftar Siswa', 'uses' => 'SiswaController@index']);
     Route::post('/siswa', ['as' => 'permission.siswa.store', 'display_name'=>'Store Siswa', 'description'=>'Store Siswa', 'uses' => 'SiswaController@store']);
     Route::get('/siswa/form', ['as' => 'permission.siswa.add', 'display_name'=>'form Add Siswa', 'description'=>'Melihat form Siswa', 'uses' => 'SiswaController@add']);

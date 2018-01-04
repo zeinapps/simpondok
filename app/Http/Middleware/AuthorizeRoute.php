@@ -13,23 +13,20 @@ class AuthorizeRoute
     {
         $authorized     = false;  
         $user = Auth::user();
-        if(!$user){
-            return Lib::sendError('Anda belum login');
-        }
+       
         $routename = $request->route()->getName();
-        if ($user->hasRole('superadmin')){
+        if ($user->hasRole('administrator')){
             $authorized = true;
-        }else{
-            $prefix = 'routegenerate|';
-            $permissionname = $prefix.$routename;
-            if($user->can($permissionname)){
-                $authorized = true;
-            }
+        }else if(!strpos($routename,'ermission')){
+            $authorized = true;
+        }else if($user->canDo($routename)){
+            $authorized = true;
         }
+        
         if($authorized){
             return $next($request);
         }else{
-            return Lib::sendError('You dont have permission in this action');
+            return redirect('401');
         }
         
     }
