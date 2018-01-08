@@ -15,6 +15,14 @@
         <h3 class="box-title">Form Data Siswa</h3>
     </div>
     <!-- /.box-header -->
+    <div class="row">
+        <div class="input-group-btn" style="text-align: center">
+            <button type="button" class="btn btn-info"
+                    onclick="location.href ='/excel/format_upload.xlsx'">
+                Undah Format
+            </button>
+        </div>
+    </div>
     <!-- form start -->
     {!! Form::open(['url' => 'admin/siswa/uploadexcel', 'method' => 'POST','class'=>'form-horizontal' , 'enctype'=>'multipart/form-data']) !!}
     {{ Form::token() }}

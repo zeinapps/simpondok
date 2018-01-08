@@ -13,7 +13,7 @@
         <h3 class="box-title">List Data</h3>
 
     </div>
-    {!! Form::open(['url' => 'admin/storeupload', 'method' => 'POST' ])!!}
+    {!! Form::open(['url' => 'admin/siswa/storeupload', 'method' => 'POST' ])!!}
     <!-- /.box-header -->
     <div class="box-body table-responsive no-padding">
         
@@ -25,6 +25,7 @@
                     <th>Alamat</th>
                     <th>Tempat Lahir</th>
                     <th>Tanggal Lahir</th>
+                    <th>Keterangan</th>
                 </tr>
                 
                 @foreach ($data as $v)
@@ -48,6 +49,9 @@
                     <td>
                         {{ $v['tanggal_lahir'] }}
                         <input type="hidden" name="tanggal_lahir[]" value="{{ $v['tempat_lahir'] }}" />
+                    </td>
+                    <td>
+                        {{ $v['message'] }}
                     </td>
 
                 </tr>
