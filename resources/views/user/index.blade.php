@@ -57,6 +57,8 @@
                 
                     <td>
                         <a class="btn btn-warning btn-xs" href="{{ route('permission.user.edit',['id' => $v->id ]) }}" style="float: left; margin-right: 5px;">Edit</a>
+                        <a class="btn btn-warning btn-xs" target="_blank" href="{{ route('permission.user.preview',['id' => $v->id ]) }}" style="float: left; margin-right: 5px;">Preview</a>
+                       <a class="btn btn-warning btn-xs" target="_blank" href="{{ route('permission.user.cetak',['id' => $v->id ]) }}" style="float: left; margin-right: 5px;">Cetak</a>
                        <!--  <a class="btn btn-danger btn-xs" href="{{ route('permission.user.edit',['id' => $v->id ]) }}" style="float: left; margin-right: 5px;">Reset</a>
                                                    <form action="{{ url('/user/'.$v->id ) }}" method="POST">
                                                         {{ csrf_field() }}

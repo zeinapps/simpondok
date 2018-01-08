@@ -26,6 +26,12 @@
                             <i class="fa fa-plus"></i>
                         </button>
                     </div>
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default pull-right"
+                                onclick="location.href ='{{ route('permission.siswa.formupload') }}'">
+                            Uploads
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>

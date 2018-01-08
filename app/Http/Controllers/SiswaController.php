@@ -10,6 +10,8 @@ use App\Models\Siswa;
 use App\Models\SiswaInfo;
 use Alert;
 use DB;
+use Box\Spout\Reader\ReaderFactory;
+use Box\Spout\Common\Type;
 
 class SiswaController extends Controller{
     use ControllerTrait;
@@ -103,5 +105,63 @@ class SiswaController extends Controller{
         return $this->sendData(null);
     }
     
+    public function formupload(){ 
+        return view('siswa/formupload');
+    }
+    
+    public function uploadexcel(Request $request){
+        $file = $request->file->path();// get file
+        $reader = ReaderFactory::create(Type::XLSX); // for XLSX files
+        $reader->open($file);
+               
+        $is_submit = true;
+        $AllNewSiswa = [];
+        foreach ($reader->getSheetIterator() as $sheet) {
+            $new_siswa = [];
+            $row_0 = true;
+            
+            foreach ($sheet->getRowIterator() as $row) {
+                //lompati kolom
+                if($row_0){
+                    $row_0 = false;
+                    continue;
+                }
+                $class = "success";
+                if(strlen(trim($row[0])) == 0){
+                    $class = "danger";
+                    $is_submit = false;
+                }
+                $new_siswa = [
+                    'nama' => trim($row[0]),
+                    'nomor_induk' => trim($row[1]),
+                    'alamat' => trim($row[2]),
+                    'tempat_lahir' => trim($row[3]),
+                    'tanggal_lahir' => trim($row[4]),
+                    'class' => $class,
+                ];
+                $AllNewSiswa[] = $new_siswa;
+                
+            }
+        }
+        $reader->close();
+        
+        if(count($AllNewSiswa) == 0){
+            Alert::danger("Tidak ditemukan data yang valid");
+            return back();
+        }
+        
+        $max_upload = 1000;
+        if(count($AllNewSiswa) > $max_upload){
+            Alert::danger("Maksimal Upload $max_upload akun");
+            return back();
+        }
+        if($is_submit){
+            Alert::success('Add/Update Data berhasil');
+        }else{
+            Alert::danger('Ada beberapa data yang tidak valid, silahkan diperbaiki lagi');
+        }
+        return view('siswa/previewupload',['data' => $AllNewSiswa,'is_submit' => $is_submit]);
+    
+    }
 
 }

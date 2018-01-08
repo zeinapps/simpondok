@@ -10,6 +10,7 @@ use App\User;
 use App\Models\Role;
 use Alert;
 use DB;
+use PDF;
 
 class UserController extends Controller{
     use ControllerTrait;
@@ -121,4 +122,18 @@ class UserController extends Controller{
         return $this->sendData(null);
     }
     
+    public function cetak($id){
+        $akun = User::where('id',$id)->with('roles')->first()->makeVisible(['password']);
+        
+        $pdf = PDF::loadView('user/cetak', $akun)
+                ->setPaper('a4','portrait')
+                ->setWarnings(false);
+        return $pdf->download("cetak-$akun->name.pdf");
+    }
+    
+    public function preview($id){ 
+        $akun = User::where('id',$id)->with('roles')->first()->makeVisible(['password']);
+        
+        return view('user/preview',$akun);
+    }
 }

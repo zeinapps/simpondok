@@ -30,6 +30,9 @@ Route::group(['prefix'=> 'admin','middleware' => ['auth','auth.route']], functio
     Route::post('/user', ['as' => 'permission.user.store', 'display_name'=>'Store User', 'description'=>'Store User', 'uses' => 'UserController@store']);
     Route::get('/user/form', ['as' => 'permission.user.add', 'display_name'=>'form Add User', 'description'=>'Melihat form User', 'uses' => 'UserController@add']);
     Route::get('/user/form/{id}', ['as' => 'permission.user.edit', 'display_name'=>'form Edit User', 'description'=>'Melihat form User', 'uses' => 'UserController@edit']);
+    Route::get('/user/cetak/{id}', ['as' => 'permission.user.cetak', 'display_name'=>'Cetak User', 'description'=>'Cetak pdf User', 'uses' => 'UserController@cetak']);
+    Route::get('/user/preview/{id}', ['as' => 'permission.user.preview', 'display_name'=>'Cetak User', 'description'=>'Cetak pdf User', 'uses' => 'UserController@preview']);
+//    Route::post('/user/upload', ['as' => 'permission.user.upload', 'display_name'=>'Upload User', 'description'=>'Upload User', 'uses' => 'UserController@upload']);
 //    Route::get('/user/reset/{id}', ['as' => 'permission.user.reset', 'display_name'=>'form Reset Password', 'description'=>'Melihat form User', 'uses' => 'UserController@reset']);
     
     Route::get('/role', ['as' => 'permission.role.index', 'display_name'=>'List Role', 'description'=>'Melihat Daftar Role', 'uses' => 'RoleController@index']);
@@ -56,6 +59,9 @@ Route::group(['prefix'=> 'admin','middleware' => ['auth','auth.route']], functio
 //    
     Route::get('/siswa', ['as' => 'permission.siswa.index', 'display_name'=>'List Siswa', 'description'=>'Melihat Daftar Siswa', 'uses' => 'SiswaController@index']);
     Route::post('/siswa', ['as' => 'permission.siswa.store', 'display_name'=>'Store Siswa', 'description'=>'Store Siswa', 'uses' => 'SiswaController@store']);
+    Route::post('/siswa/uploadexcel', ['as' => 'permission.siswa.uploadexcel', 'display_name'=>'uploadexcel Siswa', 'description'=>'uploadexcel Siswa', 'uses' => 'SiswaController@uploadexcel']);
+    Route::post('/siswa/storeupload', ['as' => 'permission.siswa.storeupload', 'display_name'=>'storeupload Siswa', 'description'=>'storeupload Siswa', 'uses' => 'SiswaController@storeupload']);
+    Route::get('/siswa/formupload', ['as' => 'permission.siswa.formupload', 'display_name'=>'formupload Siswa', 'description'=>'formupload Siswa', 'uses' => 'SiswaController@formupload']);
     Route::get('/siswa/form', ['as' => 'permission.siswa.add', 'display_name'=>'form Add Siswa', 'description'=>'Melihat form Siswa', 'uses' => 'SiswaController@add']);
     Route::get('/siswa/form/{id}', ['as' => 'permission.siswa.edit', 'display_name'=>'form Edit Siswa', 'description'=>'Melihat form Siswa', 'uses' => 'SiswaController@edit']);
     

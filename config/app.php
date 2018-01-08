@@ -179,6 +179,8 @@ return [
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
         Vinkla\Alert\AlertServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -229,7 +231,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Alert' => Vinkla\Alert\Facades\Alert::class,
         'Form' => Collective\Html\FormFacade::class,
-
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];
