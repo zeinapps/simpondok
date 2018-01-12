@@ -8,6 +8,16 @@
 
 @section('content')
 
+<div class="box-body">
+    {!! Form::open(['url' => 'admin/rombel', 'method' => 'POST','class'=>'form-horizontal' ]) !!}
+    <div class="form-group">
+        <label for="name" class="col-md-4 control-label">Tahun Ajaran:</label>
+        <div class="col-md-6">
+            {{ Form::select('tahun', $tahun_all, $tahun->id, ['onchange' => 'this.form.submit();' ,'class' => 'form-control select2 select2-hidden-accessible']) }}
+        </div>
+    </div>
+    {!! Form::close() !!}
+</div>
 <div class="box">
     <div class="box-header">
         <h3 class="box-title">List Data</h3>

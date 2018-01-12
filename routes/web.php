@@ -104,4 +104,10 @@ Route::group(['prefix'=> 'admin','middleware' => ['auth','auth.route']], functio
     Route::get('/rombel/{tahun}/form', ['as' => 'permission.rombel.add', 'display_name'=>'form Add Rombel', 'description'=>'Melihat form Rombel', 'uses' => 'RombelController@add']);
     Route::get('/rombel/{tahun}/form/{id}', ['as' => 'permission.rombel.edit', 'display_name'=>'form Edit Rombel', 'description'=>'Melihat form Rombel', 'uses' => 'RombelController@edit']);
     
+    Route::get('/rombel_siswa', ['as' => 'permission.rombel_siswa.pilih', 'display_name'=>'Pilih tahun Rombel Siswa', 'description'=>'Pilih tahun Rombel Siswa', 'uses' => 'RombelSiswaController@pilih']);
+    Route::post('/rombel_siswa', ['as' => 'permission.rombel_siswa.pilihstore', 'display_name'=>'Store Pilih tahun Rombel Siswa', 'description'=>'Store Pilih tahun Rombel Siswa', 'uses' => 'RombelSiswaController@storepilih']);
+    Route::get('/rombel_siswa/{tahun}', ['as' => 'permission.rombel_siswa.index', 'display_name'=>'List Master Rombel Siswa', 'description'=>'Melihat Daftar Master Rombel Siswa', 'uses' => 'RombelSiswaController@index']);
+    Route::post('/rombel_siswa/{tahun}', ['as' => 'permission.rombel_siswa.store', 'display_name'=>'Store Master Rombel Siswa', 'description'=>'Store Master Rombel Siswa', 'uses' => 'RombelSiswaController@store']);
+    Route::delete('/rombel_siswa/{tahun}', ['as' => 'permission.rombel_siswa.delete', 'display_name'=>'Delete Master Rombel Siswa', 'description'=>'Delete Master Rombel Siswa', 'uses' => 'RombelSiswaController@delete']);
+    
 });

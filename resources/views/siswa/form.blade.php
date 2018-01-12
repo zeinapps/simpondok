@@ -42,6 +42,18 @@
                 @endif
             </div>
         </div>
+        <div class="form-group">
+            <label for="name" class="col-md-4 control-label">Tingkat:</label>
+            <div class="col-md-6">
+            {{ Form::select('tingkat_id', $tingkat_all,  isset($tingkat_id) ? $tingkat_id : old('tingkat_id'), ['class' => 'form-control select2 select2-hidden-accessible']) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name" class="col-md-4 control-label">Lulus:</label>
+            <div class="col-md-6">
+            {{ Form::select('is_lulus', [0=>"Belum",1=>"Sudah"],  isset($is_lulus) ? $is_lulus : old('is_lulus'), ['class' => 'form-control select2 select2-hidden-accessible']) }}
+            </div>
+        </div>
     </div>
     <div class="">
         <div class="box box-solid">

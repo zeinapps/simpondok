@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 use App\Traits\ControllerTrait;
+use App\Models\Master\MTingkat;
 use App\Models\Siswa;
 use App\Models\SiswaInfo;
 use Alert;
@@ -42,6 +43,8 @@ class SiswaController extends Controller{
         
         $param_siswa = [
             'nama' => $request->nama,
+            'is_lulus' => $request->is_lulus,
+            'tingkat_id' => $request->tingkat_id,
             'nomor_induk' => $request->nomor_induk?$request->nomor_induk:null,
         ];
                 
@@ -88,11 +91,22 @@ class SiswaController extends Controller{
         $query = Siswa::find($id)->toArray();
         $siswaInfo = SiswaInfo::where('siswa_id',$id)->first()->toArray();
 
-        return view('siswa/form', array_merge($query, $siswaInfo));
+        $tagCache = ['tingkat'];
+        $key = '_get_all_tingkat';
+        foreach ($this->getFromCache($tagCache, new MTingkat, $key) as $va) {
+            $tingkat [$va->id] = $va->nama;
+        }
+        
+        return view('siswa/form', array_merge($query, $siswaInfo,['tingkat_all' => $tingkat]));
     }
     
     public function add(){ 
-        return view('siswa/form');
+        $tagCache = ['tingkat'];
+        $key = '_get_all_tingkat';
+        foreach ($this->getFromCache($tagCache, new MTingkat, $key) as $va) {
+            $tingkat [$va->id] = $va->nama;
+        }
+        return view('siswa/form',['tingkat_all' => $tingkat]);
     }
     
     public function delete($id){ 

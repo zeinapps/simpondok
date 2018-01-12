@@ -17,9 +17,13 @@ class CreateSiswaTable extends Migration
             $table->increments('id');
             $table->string('nama',255);
             $table->integer('nomor_induk')->nullable();
+            $table->integer('tingkat_id')->unsigned()->nullable();
+            $table->enum('is_lulus', ['0', '1'])->default('0');
             $table->string('foto',100)->default('0.png');
             $table->timestamps();
             
+            $table->foreign('tingkat_id')->references('id')->on('m_tingkat')
+                ->onUpdate('cascade')->onDelete('cascade');
             
             $table->engine = 'InnoDB';
         });

@@ -9,7 +9,7 @@ use App\Models\MTingkatMapel;
 use App\Models\Master\Mapel;
 use App\Models\Master\MTingkat;
 use Alert;
-use DB;
+use Validator;
 
 class MTingkatMapelController extends Controller{
     use ControllerTrait;
@@ -41,6 +41,17 @@ class MTingkatMapelController extends Controller{
     }
     
     public function store(Request $request){ 
+        
+        $validator = Validator::make($request->all(), [
+            'tingkat_id' => 'required',
+            'mapel' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::danger($validator->errors());
+            return back()->withInput()->withErrors($validator);
+        }
+        
         $tingkat = MTingkat::find($request->tingkat_id);
         if($request->mapel){
             $tingkat->mapels()->attach($request->mapel);
@@ -50,6 +61,17 @@ class MTingkatMapelController extends Controller{
     }
     
     public function delete(Request $request){ 
+        
+        $validator = Validator::make($request->all(), [
+            'tingkat_id' => 'required',
+            'mapel' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::danger($validator->errors());
+            return back()->withInput()->withErrors($validator);
+        }
+        
         $tingkat = MTingkat::find($request->tingkat_id);
         if($request->mapel){
             $tingkat->mapels()->detach($request->mapel);

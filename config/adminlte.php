@@ -213,14 +213,15 @@ return [
             ],
         ],
         [
-            'text'    => 'Rombel',
+            'text'    => 'Pengaturan Rombel',
             'icon'    => 'share',
             'permission' => [
-                'permission.rombel.index'
+                'permission.rombel.index',
+                'permission.rombel_siswa.index'
             ],
             'submenu' => [
                 [
-                    'text'        => 'Data',
+                    'text'        => 'Rombel',
                     'url'         => 'admin/rombel',
                     'icon'        => 'user',
                     'permission'  => 'permission.rombel.index',

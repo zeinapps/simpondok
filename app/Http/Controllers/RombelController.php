@@ -16,8 +16,8 @@ use Alert;
 class RombelController extends Controller{
     use ControllerTrait;
     
-    public function pilih(Request $request){ 
-        $request->tahun;
+    public function pilih(){ 
+        
         $tahun_ajaran = TahunAjaran::orderBy('id',"DESC")->get();
         $tahun = [ '' => '--- Pilih ---'];
         foreach ($tahun_ajaran as $value) {
@@ -56,12 +56,19 @@ class RombelController extends Controller{
         $model = $model->select('rombel.*','m_tingkat.nama as tingkat');
         $result = $this->paginateFromCache($tag, $model, $key);
         
-        $tahun = $this->findFromCache($tahun, new TahunAjaran, ['m_tahun_ajaran']);
+        $objtahun = $this->findFromCache($tahun, new TahunAjaran, ['m_tahun_ajaran']);
+        
+        $tahun_ajaran = TahunAjaran::orderBy('id',"DESC")->get();
+        $tahun_all = [ '' => '--- Pilih ---'];
+        foreach ($tahun_ajaran as $value) {
+            $tahun_all[$value->id] = $value->nama;
+        }
         
         $data = [
             'data' => $result, 
             's' => $s, 
-            'tahun' => $tahun,
+            'tahun' => $objtahun,
+            'tahun_all' => $tahun_all,
             'tingkat' => $tingkat,
             'tingkat_id' => $tingkat_id,
             ];
@@ -100,7 +107,7 @@ class RombelController extends Controller{
         }
         $this->clearCache('rombel');
         Alert::success('Add/Update Data berhasil');
-        return redirect()->route('permission.rombel.index',['tahun' => $tahun]);
+        return redirect()->route('permission.rombel.index',['tahun' => $tahun,'tingkat_id' => $request->tingkat_id]);
         
     }
     

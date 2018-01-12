@@ -25,5 +25,10 @@ class Rombel extends Model {
     {
         return $this->belongsTo(\App\User::class,'user_id');
     }
+    
+    public function siswa()
+    {
+        return $this->belongsToMany('App\Models\Siswa', 'rombel_siswa', 'rombel_id', 'siswa_id');
+    }
 
 }
