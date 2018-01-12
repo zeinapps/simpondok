@@ -16,7 +16,7 @@ class CreateSiswaTable extends Migration
         Schema::create('siswa', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama',255);
-            $table->integer('nomor_induk')->nullable()->unique();
+            $table->integer('nomor_induk')->nullable();
             $table->string('foto',100)->default('0.png');
             $table->timestamps();
             

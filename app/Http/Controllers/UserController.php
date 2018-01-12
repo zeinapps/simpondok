@@ -69,7 +69,12 @@ class UserController extends Controller{
             }
 
             $new_user->name = $request->name;
-            $new_user->email = $request->email; 
+            $new_user->telp = $request->telp;
+            $new_user->alamat = $request->alamat;
+            $new_user->tempat_lahir = $request->tempat_lahir;
+            $new_user->tanggal_lahir = $request->tanggal_lahir;
+            $new_user->riwayat_pelatihan = $request->riwayat_pelatihan;
+            $new_user->tahun_masuk = $request->tahun_masuk; 
             // optional
             $new_user->save();
             $new_user->detachRoles();

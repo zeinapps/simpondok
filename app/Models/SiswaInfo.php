@@ -3,12 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\ApilibRoleTrait;
 use App\Traits\CacheModelTrait;
 
 class SiswaInfo extends Model {
 
-    use ApilibRoleTrait,CacheModelTrait;
+    use CacheModelTrait;
     
     public $table = 'siswa_info';
     protected $primaryKey = 'siswa_id';

@@ -77,6 +77,60 @@
             </div>
         </div>
         @endif
+        <div class="form-group">
+            <label for="telp" class="col-md-4 control-label">Telp:</label>
+            <div class="col-md-6">
+                <input id="telp" type="text" class="form-control" name="telp" value="{{ isset($telp) ? $telp : old('telp') }}">
+                @if ($errors->has('telp'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('telp') }}</strong>
+                </span>
+                @endif
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="alamat" class="col-md-4 control-label">Alamat:</label>
+            <div class="col-md-6">
+                <input id="alamat" type="text" class="form-control" name="alamat" value="{{ isset($alamat) ? $alamat : old('alamat') }}">
+                @if ($errors->has('alamat'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('alamat') }}</strong>
+                </span>
+                @endif
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="tempat_lahir" class="col-md-4 control-label">Tempat Lahir:</label>
+            <div class="col-md-6">
+                <input id="tempat_lahir" type="text" class="form-control" name="tempat_lahir" value="{{ isset($tempat_lahir) ? $tempat_lahir : old('tempat_lahir') }}">
+                @if ($errors->has('tempat_lahir'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('tempat_lahir') }}</strong>
+                </span>
+                @endif
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name" class="col-md-4 control-label">Tanggal Lahir:</label>
+            <div class="col-md-6">
+                <input type="text" name="tanggal_lahir" class="form-control" data-inputmask="'alias': 'yyyy-mm-dd'" value="{{ isset($tanggal_lahir) ? $tanggal_lahir : old('tanggal_lahir') }}" data-mask="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="tahun_masuk" class="col-md-4 control-label">Tahun Masuk:</label>
+            <div class="col-md-6">
+                <input id="datemask2" type="text" class="form-control" name="tahun_masuk" data-inputmask="'alias': 'y'" value="{{ isset($tahun_masuk) ? $tahun_masuk : old('tahun_masuk') }}" data-mask="">
+                
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="riwayat_pelatihan" class="col-md-4 control-label">Riwayat Pelatihan:</label>
+            <div class="col-md-6">
+                <textarea id="riwayat_pelatihan" class="form-control" name="riwayat_pelatihan" >{{ isset($riwayat_pelatihan) ? $riwayat_pelatihan : old('riwayat_pelatihan') }}</textarea>
+               
+            </div>
+        </div>
     </div>
     <div class="box-footer">
         <button type="submit" class="btn btn-primary">
@@ -92,4 +146,20 @@
 
 
 
+@stop
+@section('js')
+<script src="{{ asset('vendor/adminlte/plugins/input-mask/jquery.inputmask.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
+<script>
+  $(function () {
+    
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+//    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('y', { 'placeholder': 'y' })
+//    //Money Euro
+    $('[data-mask]').inputmask()
+  })
+</script>
 @stop

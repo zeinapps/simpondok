@@ -6,28 +6,44 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 use App\Traits\ControllerTrait;
-use App\Models\Master\Kelas;
-use App\Models\Master\Tingkat;
+use App\Models\Master\MRombel;
+use App\Models\Master\MTingkat;
 use Alert;
 
 
-class KelasController extends Controller{
+class RombelController extends Controller{
     use ControllerTrait;
     public function index(Request $request){ 
-        $tag = ['kelas'];
-        $key = '_list_kelas';
+        $tag = ['m_rombel'];
+        $key = '_list_m_rombel';
         $s = '';
+        
+        $Mtingkat = MTingkat::get();
+        $tingkat = [];
+        foreach ($Mtingkat as $mt) {
+            $tingkat[$mt->id] = $mt->nama . ' (' .$mt->keterangan .')';
+        }
+        $tingkat_id = isset($request->tingkat_id) ? $request->tingkat_id : $Mtingkat[0]->id;
+        
         if($request->s){
             $s = $request->s;
-            $model = Kelas::where('keterangan','like',"%$s%");
+            $model = MRombel::where('m_rombel.nama','like',"%$s%")
+                    ->orWhere('m_rombel.keterangan','like',"%$s%");
         }else{
-            $model = new Kelas();
+            $model = new MRombel();
         }
-        $model = $model->leftJoin('m_tingkat','m_kelas.tingkat_id','=','m_tingkat.id');
-        $model = $model->select('m_kelas.*','m_tingkat.nama as tingkat');
+        $model = $model->where('tingkat_id',$tingkat_id);
+        $model = $model->leftJoin('m_tingkat','m_rombel.tingkat_id','=','m_tingkat.id');
+        $model = $model->select('m_rombel.*','m_tingkat.nama as tingkat');
         $result = $this->paginateFromCache($tag, $model, $key);
         
-        return view('master/kelas/index', ['data' => $result, 's' => $s ]);
+        $data = [
+            'data' => $result,
+            's' => $s,
+            'tingkat' => $tingkat,
+            'tingkat_id' => $tingkat_id,
+            ];
+        return view('master/rombel/index', $data);
     }
     
     public function store(Request $request){ 
@@ -43,9 +59,9 @@ class KelasController extends Controller{
         
         try {
             if(!$request->id){
-                $new_data = Kelas::create($request->all());
+                $new_data = MRombel::create($request->all());
             }else{
-                $new_data = Kelas::find($request->id);
+                $new_data = MRombel::find($request->id);
                 $new_data->update($request->all());
             }
             
@@ -56,29 +72,29 @@ class KelasController extends Controller{
             
             return back()->withInput()->withErrors($e->getMessage());
         }
-        $this->clearCache('kelas');
+        $this->clearCache('m_rombel');
         Alert::success('Add/Update Data berhasil');
-        return redirect()->route('permission.kelas.index');
+        return redirect()->route('permission.mrombel.index');
         
     }
     
     public function edit($id){
-        $query = Kelas::find($id)->toArray();
+        $query = MRombel::find($id)->toArray();
         $tagCache = ['tingkat'];
         $key = '_get_all_tingkat';
-        foreach ($this->getFromCache($tagCache, new Tingkat, $key) as $va) {
+        foreach ($this->getFromCache($tagCache, new MTingkat, $key) as $va) {
             $tingkat [$va->id] = $va->nama;
         }
-        return view('master/kelas/form', array_merge($query, ['tingkat_all' => $tingkat]));
+        return view('master/rombel/form', array_merge($query, ['tingkat_all' => $tingkat]));
     }
     
     public function add(){ 
         $tagCache = ['tingkat'];
         $key = '_get_all_tingkat';
-        foreach ($this->getFromCache($tagCache, new Tingkat, $key) as $va) {
+        foreach ($this->getFromCache($tagCache, new MTingkat, $key) as $va) {
             $tingkat [$va->id] = $va->nama;
         }
-        return view('master/kelas/form',array_merge(['tingkat_all' => $tingkat], []));
+        return view('master/rombel/form',array_merge(['tingkat_all' => $tingkat], []));
     }
     
     public function delete($id){ 

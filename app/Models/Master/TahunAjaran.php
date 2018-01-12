@@ -3,17 +3,16 @@
 namespace App\Models\Master;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\ApilibRoleTrait;
 use App\Traits\CacheModelTrait;
 
-class Kelas extends Model {
+class TahunAjaran extends Model {
 
-    use ApilibRoleTrait,CacheModelTrait;
+    use CacheModelTrait;
     
-    public $table = 'm_kelas';
+    public $table = 'm_tahun_ajaran';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id', 'tingkat_id','nama','keterangan'
+        'id', 'nama','keterangan'
     ];
 
 }

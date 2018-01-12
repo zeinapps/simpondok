@@ -6,26 +6,26 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 use App\Traits\ControllerTrait;
-use App\Models\Master\MTingkat;
+use App\Models\Master\TahunAjaran;
 use Alert;
 use DB;
 
 
-class TingkatController extends Controller{
+class TahunAjaranController extends Controller{
     use ControllerTrait;
     public function index(Request $request){ 
-        $tag = ['tingkat'];
-        $key = '_list_tingkat';
+        $tag = ['tahun_ajaran'];
+        $key = '_list_tahun_ajaran';
         $s = '';
         if($request->s){
             $s = $request->s;
-            $model = MTingkat::where('keterangan','like',"%$s%");
+            $model = TahunAjaran::where('keterangan','like',"%$s%");
         }else{
-            $model = new MTingkat();
+            $model = new TahunAjaran();
         }
         $result = $this->paginateFromCache($tag, $model, $key);
         
-        return view('master/tingkat/index', ['data' => $result, 's' => $s ]);
+        return view('master/tahun_ajaran/index', ['data' => $result, 's' => $s ]);
     }
     
     public function store(Request $request){ 
@@ -40,9 +40,9 @@ class TingkatController extends Controller{
         
         try {
             if(!$request->id){
-                $new_data = MTingkat::create($request->all());
+                $new_data = TahunAjaran::create($request->all());
             }else{
-                $new_data = MTingkat::find($request->id);
+                $new_data = TahunAjaran::find($request->id);
                 $new_data->update($request->all());
             }
             
@@ -53,31 +53,31 @@ class TingkatController extends Controller{
             
             return back()->withInput()->withErrors($e->getMessage());
         }
-        $this->clearCache('m_tingkat');
+        $this->clearCache('m_tahun_ajaran');
         Alert::success('Add/Update Data berhasil');
-        return redirect()->route('permission.tingkat.index');
+        return redirect()->route('permission.tahun_ajaran.index');
         
     }
     
     public function edit($id){
-        $tagCache = ['tingkat'];
-        $key = '_get_all_tingkat';
-        $tingkat[0] = "Tidak Ada";
-        foreach ($this->getFromCache($tagCache, new MTingkat, $key) as $va) {
-            $tingkat [$va->id] = $va->nama;
+        $tagCache = ['tahun_ajaran'];
+        $key = '_get_all_tahun_ajaran';
+        $tahun_ajaran[0] = "Tidak Ada";
+        foreach ($this->getFromCache($tagCache, new TahunAjaran, $key) as $va) {
+            $tahun_ajaran [$va->id] = $va->nama;
         }
-        $query = MTingkat::find($id)->toArray();
-        return view('master/tingkat/form', array_merge($query, ['tingkat_all' => $tingkat]));
+        $query = TahunAjaran::find($id)->toArray();
+        return view('master/tahun_ajaran/form', array_merge($query, ['tahun_ajaran_all' => $tahun_ajaran]));
     }
     
     public function add(){ 
-        $tagCache = ['tingkat'];
-        $key = '_get_all_tingkat';
-        $tingkat[0] = "Tidak Ada";
-        foreach ($this->getFromCache($tagCache, new MTingkat, $key) as $va) {
-            $tingkat [$va->id] = $va->nama;
+        $tagCache = ['tahun_ajaran'];
+        $key = '_get_all_tahun_ajaran';
+        $tahun_ajaran[0] = "Tidak Ada";
+        foreach ($this->getFromCache($tagCache, new TahunAjaran, $key) as $va) {
+            $tahun_ajaran [$va->id] = $va->nama;
         }
-        return view('master/tingkat/form',array_merge(['tingkat_all' => $tingkat], []));
+        return view('master/tahun_ajaran/form',array_merge(['tahun_ajaran_all' => $tahun_ajaran], []));
     }
     
     public function delete($id){ 

@@ -6,30 +6,30 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 use App\Traits\ControllerTrait;
-use App\Models\Master\Mapel;
+use App\Models\Master\Sarpras;
+use App\Models\Master\Tingkat;
 use Alert;
 
 
-class MapelController extends Controller{
+class SarprasController extends Controller{
     use ControllerTrait;
     public function index(Request $request){ 
-        $tag = ['mapel'];
-        $key = '_list_mapel';
+        $tag = ['sarpras'];
+        $key = '_list_sarpras';
         $s = '';
         if($request->s){
             $s = $request->s;
-            $model = Mapel::where('keterangan','like',"%$s%");
+            $model = Sarpras::where('keterangan','like',"%$s%");
         }else{
-            $model = new Mapel();
+            $model = new Sarpras();
         }
         $result = $this->paginateFromCache($tag, $model, $key);
         
-        return view('master/mapel/index', ['data' => $result, 's' => $s ]);
+        return view('master/sarpras/index', ['data' => $result, 's' => $s ]);
     }
     
     public function store(Request $request){ 
         $validator = Validator::make($request->all(), [
-            'kode' => 'required|string|max:10',
             'nama' => 'required|string|max:50',
         ]);
 
@@ -40,36 +40,42 @@ class MapelController extends Controller{
         
         try {
             if(!$request->id){
-                $new_data = Mapel::create($request->all());
+                $new_data = Sarpras::create($request->all());
             }else{
-                $new_data = Mapel::find($request->id);
+                $new_data = Sarpras::find($request->id);
                 $new_data->update($request->all());
             }
             
         } catch (\Exception $e) {
             
-            $errorCode = $e->errorInfo[1];          
-            if($errorCode == 1062){
-                Alert::danger("Kode sudah di pakai");
-            }else{
-                Alert::danger("Terjadi masalah pada database");
-            }
+            Alert::danger("Terjadi masalah pada database");
+            
             
             return back()->withInput()->withErrors($e->getMessage());
         }
-        $this->clearCache('m_mapel');
+        $this->clearCache('m_sarpras');
         Alert::success('Add/Update Data berhasil');
-        return redirect()->route('permission.mapel.index');
+        return redirect()->route('permission.sarpras.index');
         
     }
     
     public function edit($id){
-        $query = Mapel::find($id)->toArray();
-        return view('master/mapel/form', array_merge($query, []));
+        $query = Sarpras::find($id)->toArray();
+        $tagCache = ['tingkat'];
+        $key = '_get_all_tingkat';
+        foreach ($this->getFromCache($tagCache, new Tingkat, $key) as $va) {
+            $tingkat [$va->id] = $va->nama;
+        }
+        return view('master/sarpras/form', array_merge($query, ['tingkat_all' => $tingkat]));
     }
     
     public function add(){ 
-        return view('master/mapel/form');
+        $tagCache = ['tingkat'];
+        $key = '_get_all_tingkat';
+        foreach ($this->getFromCache($tagCache, new Tingkat, $key) as $va) {
+            $tingkat [$va->id] = $va->nama;
+        }
+        return view('master/sarpras/form',array_merge(['tingkat_all' => $tingkat], []));
     }
     
     public function delete($id){ 

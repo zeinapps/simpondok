@@ -5,7 +5,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>Master Tingkat</h1>
+    <h1>Master Rombel</h1>
 @stop
 
 @section('content')
@@ -16,11 +16,16 @@
     </div>
     <!-- /.box-header -->
     <!-- form start -->
-    {!! Form::open(['url' => 'admin/tingkat', 'method' => 'POST','class'=>'form-horizontal' , 'enctype'=>'multipart/form-data']) !!}
+    {!! Form::open(['url' => 'admin/mrombel', 'method' => 'POST','class'=>'form-horizontal' , 'enctype'=>'multipart/form-data']) !!}
     {{ Form::token() }}
     <div class="box-body">
         <input type="hidden" name="id" value="{{ isset($id) ? $id : old('id') }}">
-       
+        <div class="form-group">
+            <label for="name" class="col-md-4 control-label">Tingkat:</label>
+            <div class="col-md-6">
+                {{ Form::select('tingkat_id', $tingkat_all,  isset($tingkat_id) ? $tingkat_id : old('tingkat_id'), ['class' => 'form-control select2 select2-hidden-accessible']) }}
+            </div>
+        </div>
         <div class="form-group">
             <label for="name" class="col-md-4 control-label">Nama:</label>
             <div class="col-md-6">
@@ -28,6 +33,17 @@
                 @if ($errors->has('nama'))
                 <span class="help-block">
                     <strong>{{ $errors->first('nama') }}</strong>
+                </span>
+                @endif
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name" class="col-md-4 control-label">Daya Tampung:</label>
+            <div class="col-md-6">
+                <input id="max_siswa" type="number" min="0" class="form-control" name="max_siswa" value="{{ isset($max_siswa) ? $max_siswa : old('max_siswa') }}" autofocus>
+                @if ($errors->has('max_siswa'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('max_siswa') }}</strong>
                 </span>
                 @endif
             </div>
@@ -47,7 +63,7 @@
         <button type="submit" class="btn btn-primary">
                 Simpan
             </button>
-            <a class="btn btn-default" href="{{ route('permission.tingkat.index') }}">
+            <a class="btn btn-default" href="{{ route('permission.mrombel.index') }}">
                 Kembali
             </a>
     </div>

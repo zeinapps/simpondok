@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('admin');
 });
 
 Route::get('/401', function () {
@@ -43,7 +43,10 @@ Route::group(['prefix'=> 'admin','middleware' => ['auth','auth.route']], functio
     Route::post('/role/permission', ['as' => 'permission.role.storepermission', 'display_name'=>'Store Role Permission', 'description'=>'Store Role Permission', 'uses' => 'RoleController@permission']);
     Route::get('/role/group/{id}', ['as' => 'permission.role.group', 'display_name'=>'form Edit Role Group', 'description'=>'Melihat form Role Group', 'uses' => 'RoleController@editgroup']);
     Route::post('/role/group', ['as' => 'permission.role.storegroup', 'display_name'=>'Store Role Group', 'description'=>'Store Role Group', 'uses' => 'RoleController@group']);
-    
+     
+    Route::get('/permission', ['as' => 'permission.permission.index', 'display_name'=>'List Group', 'description'=>'Melihat Daftar Permission', 'uses' => 'PermissionController@index']);
+    Route::post('/permission', ['as' => 'permission.permission.store', 'display_name'=>'Store Group', 'description'=>'Store Permission', 'uses' => 'PermissionController@store']);
+    Route::get('/permission/form/{id}', ['as' => 'permission.permission.edit', 'display_name'=>'form Edit Group', 'description'=>'Melihat form Permission', 'uses' => 'PermissionController@edit']);
     
     Route::get('/group', ['as' => 'permission.group.index', 'display_name'=>'List Group', 'description'=>'Melihat Daftar Group', 'uses' => 'GroupController@index']);
     Route::post('/group', ['as' => 'permission.group.store', 'display_name'=>'Store Group', 'description'=>'Store Group', 'uses' => 'GroupController@store']);
@@ -75,9 +78,30 @@ Route::group(['prefix'=> 'admin','middleware' => ['auth','auth.route']], functio
     Route::get('/tingkat/form', ['as' => 'permission.tingkat.add', 'display_name'=>'form Add Tingkat', 'description'=>'Melihat form Tingkat', 'uses' => 'Master\TingkatController@add']);
     Route::get('/tingkat/form/{id}', ['as' => 'permission.tingkat.edit', 'display_name'=>'form Edit Tingkat', 'description'=>'Melihat form Tingkat', 'uses' => 'Master\TingkatController@edit']);
     
-    Route::get('/kelas', ['as' => 'permission.kelas.index', 'display_name'=>'List Kelas', 'description'=>'Melihat Daftar Kelas', 'uses' => 'Master\KelasController@index']);
-    Route::post('/kelas', ['as' => 'permission.kelas.store', 'display_name'=>'Store Kelas', 'description'=>'Store Kelas', 'uses' => 'Master\KelasController@store']);
-    Route::get('/kelas/form', ['as' => 'permission.kelas.add', 'display_name'=>'form Add Kelas', 'description'=>'Melihat form Kelas', 'uses' => 'Master\KelasController@add']);
-    Route::get('/kelas/form/{id}', ['as' => 'permission.kelas.edit', 'display_name'=>'form Edit Kelas', 'description'=>'Melihat form Kelas', 'uses' => 'Master\KelasController@edit']);
+    Route::get('/sarpras', ['as' => 'permission.sarpras.index', 'display_name'=>'List Sarpras', 'description'=>'Melihat Daftar Sarpras', 'uses' => 'Master\SarprasController@index']);
+    Route::post('/sarpras', ['as' => 'permission.sarpras.store', 'display_name'=>'Store Sarpras', 'description'=>'Store Sarpras', 'uses' => 'Master\SarprasController@store']);
+    Route::get('/sarpras/form', ['as' => 'permission.sarpras.add', 'display_name'=>'form Add Sarpras', 'description'=>'Melihat form Sarpras', 'uses' => 'Master\SarprasController@add']);
+    Route::get('/sarpras/form/{id}', ['as' => 'permission.sarpras.edit', 'display_name'=>'form Edit Sarpras', 'description'=>'Melihat form Sarpras', 'uses' => 'Master\SarprasController@edit']);
+    
+    Route::get('/mrombel', ['as' => 'permission.mrombel.index', 'display_name'=>'List Rombel', 'description'=>'Melihat Daftar Rombel', 'uses' => 'Master\RombelController@index']);
+    Route::post('/mrombel', ['as' => 'permission.mrombel.store', 'display_name'=>'Store Rombel', 'description'=>'Store Rombel', 'uses' => 'Master\RombelController@store']);
+    Route::get('/mrombel/form', ['as' => 'permission.mrombel.add', 'display_name'=>'form Add Rombel', 'description'=>'Melihat form Rombel', 'uses' => 'Master\RombelController@add']);
+    Route::get('/mrombel/form/{id}', ['as' => 'permission.mrombel.edit', 'display_name'=>'form Edit Rombel', 'description'=>'Melihat form Rombel', 'uses' => 'Master\RombelController@edit']);
+    
+    Route::get('/tahun_ajaran', ['as' => 'permission.tahun_ajaran.index', 'display_name'=>'List TahunAjaran', 'description'=>'Melihat Daftar TahunAjaran', 'uses' => 'Master\TahunAjaranController@index']);
+    Route::post('/tahun_ajaran', ['as' => 'permission.tahun_ajaran.store', 'display_name'=>'Store TahunAjaran', 'description'=>'Store TahunAjaran', 'uses' => 'Master\TahunAjaranController@store']);
+    Route::get('/tahun_ajaran/form', ['as' => 'permission.tahun_ajaran.add', 'display_name'=>'form Add TahunAjaran', 'description'=>'Melihat form TahunAjaran', 'uses' => 'Master\TahunAjaranController@add']);
+    Route::get('/tahun_ajaran/form/{id}', ['as' => 'permission.tahun_ajaran.edit', 'display_name'=>'form Edit TahunAjaran', 'description'=>'Melihat form TahunAjaran', 'uses' => 'Master\TahunAjaranController@edit']);
+    
+    Route::get('/m_tingkat_mapel', ['as' => 'permission.m_tingkat_mapel.index', 'display_name'=>'List Master Tingkat Mapel', 'description'=>'Melihat Daftar Master Tingkat Mapel', 'uses' => 'MTingkatMapelController@index']);
+    Route::post('/m_tingkat_mapel', ['as' => 'permission.m_tingkat_mapel.store', 'display_name'=>'Store Master Tingkat Mapel', 'description'=>'Store Master Tingkat Mapel', 'uses' => 'MTingkatMapelController@store']);
+    Route::delete('/m_tingkat_mapel', ['as' => 'permission.m_tingkat_mapel.delete', 'display_name'=>'Delete Master Tingkat Mapel', 'description'=>'Delete Master Tingkat Mapel', 'uses' => 'MTingkatMapelController@delete']);
+    
+    Route::get('/rombel', ['as' => 'permission.rombel.pilih', 'display_name'=>'Pilih tahun', 'description'=>'Pilih tahun', 'uses' => 'RombelController@pilih']);
+    Route::post('/rombel', ['as' => 'permission.rombel.pilihstore', 'display_name'=>'Store Pilih tahun', 'description'=>'Store Pilih tahun', 'uses' => 'RombelController@storepilih']);
+    Route::get('/rombel/{tahun}', ['as' => 'permission.rombel.index', 'display_name'=>'List Rombel', 'description'=>'Melihat Daftar Rombel', 'uses' => 'RombelController@index']);
+    Route::post('/rombel/{tahun}', ['as' => 'permission.rombel.store', 'display_name'=>'Store Rombel', 'description'=>'Store Rombel', 'uses' => 'RombelController@store']);
+    Route::get('/rombel/{tahun}/form', ['as' => 'permission.rombel.add', 'display_name'=>'form Add Rombel', 'description'=>'Melihat form Rombel', 'uses' => 'RombelController@add']);
+    Route::get('/rombel/{tahun}/form/{id}', ['as' => 'permission.rombel.edit', 'display_name'=>'form Edit Rombel', 'description'=>'Melihat form Rombel', 'uses' => 'RombelController@edit']);
     
 });

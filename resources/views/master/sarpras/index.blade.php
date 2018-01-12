@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Master Tingkat')
+@section('title', 'Master Ruang Sarpras')
 
 @section('content_header')
-<h1>Master Tingkat</h1>
+<h1>Master Ruang Sarpras</h1>
 @stop
 
 @section('content')
@@ -13,7 +13,7 @@
         <h3 class="box-title">List Data</h3>
 
         <div class="box-tools">
-            <form action="{{ route('permission.tingkat.index') }}" method="GET">
+            <form action="{{ route('permission.sarpras.index') }}" method="GET">
                 <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="s" class="form-control pull-right" placeholder="Search" value="{{ isset($s) ? $s : old('s') }}">
 
@@ -22,7 +22,7 @@
                     </div>
                     <div class="input-group-btn">
                         <button type="button" class="btn btn-default pull-right"
-                                onclick="location.href ='{{ route('permission.tingkat.add') }}'">
+                                onclick="location.href ='{{ route('permission.sarpras.add') }}'">
                             <i class="fa fa-plus"></i>
                         </button>
                     </div>
@@ -48,7 +48,7 @@
                         {{ $v->keterangan }}
                     </td>
                     <td>
-                        <a class="btn btn-warning btn-xs" href="{{ route('permission.tingkat.edit',['id' => $v->id ]) }}" style="float: left; margin-right: 5px;">Edit</a>
+                        <a class="btn btn-warning btn-xs" href="{{ route('permission.sarpras.edit',['id' => $v->id ]) }}" style="float: left; margin-right: 5px;">Edit</a>
                        
                     </td>
 

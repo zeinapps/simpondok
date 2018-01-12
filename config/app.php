@@ -12,7 +12,11 @@ return [
     | any other location as required by the application or its packages.
     |
     */
-
+    
+    'role' => [
+        'guru' => 5,
+    ],
+    
     'name' => env('APP_NAME', 'Laravel'),
 
     /*

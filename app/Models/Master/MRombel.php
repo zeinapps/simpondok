@@ -3,17 +3,16 @@
 namespace App\Models\Master;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\ApilibRoleTrait;
 use App\Traits\CacheModelTrait;
 
-class Tingkat extends Model {
+class MRombel extends Model {
 
-    use ApilibRoleTrait,CacheModelTrait;
+    use CacheModelTrait;
     
-    public $table = 'm_tingkat';
+    public $table = 'm_rombel';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id', 'syarat','nama','keterangan'
+        'id', 'tingkat_id','nama','keterangan','max_siswa'
     ];
 
 }

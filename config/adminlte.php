@@ -116,13 +116,20 @@ return [
         ],
         
         [
-            'text'    => 'Permissions',
+            'text'    => 'Hak Akses',
             'icon'    => 'share',
             'permission' => [
+                'permission.permission.index',
                 'permission.role.index',
                 'permission.group.index',
             ],
             'submenu' => [
+                [
+                    'text'        => 'Permission',
+                    'url'         => 'admin/permission',
+                    'icon'        => 'user',
+                    'permission'  => 'permission.permission.index',
+                ],
                 [
                     'text'        => 'Groups',
                     'url'         => 'admin/group',
@@ -147,21 +154,25 @@ return [
             ],
             'submenu' => [
                 [
+                    'text' => 'Tahun Ajaran',
+                    'url'  => 'admin/tahun_ajaran',
+                    'permission'  => 'permission.tahun_ajaran.index',
+                ],
+                [
                     'text' => 'Mata Pelajaran',
                     'url'  => 'admin/mapel',
                     'permission'  => 'permission.mapel.index',
                 ],
                 
                 [
-                    'text' => 'Tingkat/Kelas',
+                    'text' => 'Tingkat',
                     'url'  => 'admin/tingkat',
                     'permission'  => 'permission.tingkat.index',
                 ],
-                
                 [
-                    'text' => 'Ruang Kelas',
-                    'url'  => 'admin/kelas',
-                    'permission'  => 'permission.kelas.index',
+                    'text' => 'Sarpras',
+                    'url'  => 'admin/sarpras',
+                    'permission'  => 'permission.sarpras.index',
                 ],
             ],
         ],
@@ -177,6 +188,50 @@ return [
             'text'        => 'Siswa',
             'url'         => 'admin/siswa',
             'icon'        => 'user',
+        ],
+        
+        [
+            'text'    => 'Default',
+            'icon'    => 'share',
+            'permission' => [
+                'permission.mrombel.index',
+                'permission.m_tingkat_mapel.index'
+            ],
+            'submenu' => [
+                [
+                    'text'        => 'Rombel',
+                    'url'         => 'admin/mrombel',
+                    'icon'        => 'user',
+                    'permission'  => 'permission.mrombel.index',
+                ],
+                [
+                    'text'        => 'Tingkat Mapel',
+                    'url'         => 'admin/m_tingkat_mapel',
+                    'icon'        => 'user',
+                    'permission'  => 'permission.m_tingkat_mapel.index',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Rombel',
+            'icon'    => 'share',
+            'permission' => [
+                'permission.rombel.index'
+            ],
+            'submenu' => [
+                [
+                    'text'        => 'Data',
+                    'url'         => 'admin/rombel',
+                    'icon'        => 'user',
+                    'permission'  => 'permission.rombel.index',
+                ],
+                [
+                    'text'        => 'Rombel Siwa',
+                    'url'         => 'admin/rombel_siswa',
+                    'icon'        => 'user',
+                    'permission'  => 'permission.rombel_siswa.index',
+                ],
+            ],
         ],
 //        'ACCOUNT SETTINGS',
 //        [

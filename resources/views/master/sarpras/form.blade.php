@@ -5,7 +5,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>Master Kelas</h1>
+    <h1>Master Sarpras</h1>
 @stop
 
 @section('content')
@@ -16,16 +16,11 @@
     </div>
     <!-- /.box-header -->
     <!-- form start -->
-    {!! Form::open(['url' => 'admin/kelas', 'method' => 'POST','class'=>'form-horizontal' , 'enctype'=>'multipart/form-data']) !!}
+    {!! Form::open(['url' => 'admin/sarpras', 'method' => 'POST','class'=>'form-horizontal' , 'enctype'=>'multipart/form-data']) !!}
     {{ Form::token() }}
     <div class="box-body">
         <input type="hidden" name="id" value="{{ isset($id) ? $id : old('id') }}">
-        <div class="form-group">
-            <label for="name" class="col-md-4 control-label">Tingkat:</label>
-            <div class="col-md-6">
-                {{ Form::select('tingkat_id', $tingkat_all,  isset($tingkat_id) ? $tingkat_id : old('tingkat_id'), ['class' => 'form-control select2 select2-hidden-accessible']) }}
-            </div>
-        </div>
+        
         <div class="form-group">
             <label for="name" class="col-md-4 control-label">Nama:</label>
             <div class="col-md-6">
@@ -52,7 +47,7 @@
         <button type="submit" class="btn btn-primary">
                 Simpan
             </button>
-            <a class="btn btn-default" href="{{ route('permission.kelas.index') }}">
+            <a class="btn btn-default" href="{{ route('permission.sarpras.index') }}">
                 Kembali
             </a>
     </div>

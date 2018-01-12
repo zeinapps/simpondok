@@ -1,18 +1,20 @@
 <?php
 
-namespace App\Models\Master;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\CacheModelTrait;
 
-class Agama extends Model {
+class SiswaNilai extends Model {
 
     use CacheModelTrait;
     
-    public $table = 'm_agama';
+    public $table = 'siswa_nilai';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id', 'keterangan'
+        'siswa_id', 
+        'tingkat_mapel_id',
+        'nilai',
     ];
 
 }

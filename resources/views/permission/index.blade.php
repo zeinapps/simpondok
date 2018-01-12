@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Master Tingkat')
+@section('title', 'AdminLTE')
 
 @section('content_header')
-<h1>Master Tingkat</h1>
+<h1>Group</h1>
 @stop
 
 @section('content')
@@ -13,18 +13,12 @@
         <h3 class="box-title">List Data</h3>
 
         <div class="box-tools">
-            <form action="{{ route('permission.tingkat.index') }}" method="GET">
+            <form action="{{ route('permission.permission.index') }}" method="GET">
                 <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="s" class="form-control pull-right" placeholder="Search" value="{{ isset($s) ? $s : old('s') }}">
 
                     <div class="input-group-btn">
                         <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                    </div>
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-default pull-right"
-                                onclick="location.href ='{{ route('permission.tingkat.add') }}'">
-                            <i class="fa fa-plus"></i>
-                        </button>
                     </div>
                 </div>
             </form>
@@ -36,20 +30,24 @@
             <tbody>
                 <tr>
                     <th>Nama</th>
-                    <th>Keterangan</th>
+                    <th>Display</th>
+                    <th>Description</th>
                     <th></th>
                 </tr>
                 @foreach ($data as $v)
                 <tr>
                     <td>
-                        {{ $v->nama }}
+                        {{ $v->name }}
                     </td>
                     <td>
-                        {{ $v->keterangan }}
+                        {{ $v->display_name }}
                     </td>
                     <td>
-                        <a class="btn btn-warning btn-xs" href="{{ route('permission.tingkat.edit',['id' => $v->id ]) }}" style="float: left; margin-right: 5px;">Edit</a>
-                       
+                        {{ $v->description }}
+                    </td>
+                    <td>
+                        <a class="btn btn-warning btn-xs" href="{{ route('permission.permission.edit',['id' => $v->id ]) }}" style="float: left; margin-right: 5px;">Edit</a>
+                        
                     </td>
 
                 </tr>

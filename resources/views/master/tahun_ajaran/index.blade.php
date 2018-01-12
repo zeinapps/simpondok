@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Master Ruang Kelas')
+@section('title', 'Master Tahun_ajaran')
 
 @section('content_header')
-<h1>Master Ruang Kelas</h1>
+<h1>Master Tahun_ajaran</h1>
 @stop
 
 @section('content')
@@ -13,7 +13,7 @@
         <h3 class="box-title">List Data</h3>
 
         <div class="box-tools">
-            <form action="{{ route('permission.kelas.index') }}" method="GET">
+            <form action="{{ route('permission.tahun_ajaran.index') }}" method="GET">
                 <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="s" class="form-control pull-right" placeholder="Search" value="{{ isset($s) ? $s : old('s') }}">
 
@@ -22,7 +22,7 @@
                     </div>
                     <div class="input-group-btn">
                         <button type="button" class="btn btn-default pull-right"
-                                onclick="location.href ='{{ route('permission.kelas.add') }}'">
+                                onclick="location.href ='{{ route('permission.tahun_ajaran.add') }}'">
                             <i class="fa fa-plus"></i>
                         </button>
                     </div>
@@ -35,7 +35,6 @@
         <table class="table table-hover">
             <tbody>
                 <tr>
-                    <th>Tingkat/Kelas</th>
                     <th>Nama</th>
                     <th>Keterangan</th>
                     <th></th>
@@ -43,16 +42,13 @@
                 @foreach ($data as $v)
                 <tr>
                     <td>
-                        {{ $v->tingkat }}
-                    </td>
-                    <td>
                         {{ $v->nama }}
                     </td>
                     <td>
                         {{ $v->keterangan }}
                     </td>
                     <td>
-                        <a class="btn btn-warning btn-xs" href="{{ route('permission.kelas.edit',['id' => $v->id ]) }}" style="float: left; margin-right: 5px;">Edit</a>
+                        <a class="btn btn-warning btn-xs" href="{{ route('permission.tahun_ajaran.edit',['id' => $v->id ]) }}" style="float: left; margin-right: 5px;">Edit</a>
                        
                     </td>
 

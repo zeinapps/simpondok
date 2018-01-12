@@ -5,7 +5,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>Master Tingkat</h1>
+    <h1>Master Tahun ajaran</h1>
 @stop
 
 @section('content')
@@ -16,7 +16,7 @@
     </div>
     <!-- /.box-header -->
     <!-- form start -->
-    {!! Form::open(['url' => 'admin/tingkat', 'method' => 'POST','class'=>'form-horizontal' , 'enctype'=>'multipart/form-data']) !!}
+    {!! Form::open(['url' => 'admin/tahun_ajaran', 'method' => 'POST','class'=>'form-horizontal' , 'enctype'=>'multipart/form-data']) !!}
     {{ Form::token() }}
     <div class="box-body">
         <input type="hidden" name="id" value="{{ isset($id) ? $id : old('id') }}">
@@ -47,7 +47,7 @@
         <button type="submit" class="btn btn-primary">
                 Simpan
             </button>
-            <a class="btn btn-default" href="{{ route('permission.tingkat.index') }}">
+            <a class="btn btn-default" href="{{ route('permission.tahun_ajaran.index') }}">
                 Kembali
             </a>
     </div>

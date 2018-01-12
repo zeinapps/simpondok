@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMTingkatTable extends Migration
+class CreateMJenjangTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateMTingkatTable extends Migration
      */
     public function up()
     {
-        Schema::create('m_tingkat', function (Blueprint $table) {
+        Schema::create('m_jenjang', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama',50);
-            $table->string('keterangan',250)->nullable();
+            $table->string('keterangan',50);
             $table->timestamps();
             $table->engine = 'InnoDB';
         });
@@ -29,6 +28,6 @@ class CreateMTingkatTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('m_tingkat');
+        Schema::dropIfExists('m_jenjang');
     }
 }
