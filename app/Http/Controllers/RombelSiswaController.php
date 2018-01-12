@@ -105,10 +105,11 @@ class RombelSiswaController extends Controller{
             Alert::danger($validator->errors());
             return back()->withInput()->withErrors($validator);
         }
-        
         $rombel = Rombel::find($request->rombel_id);
-        if($request->siswa){
-            $rombel->siswa()->attach($request->siswa);
+        foreach ($request->siswa as $s) {
+            if(!RombelSiswa::where('rombel_id',$request->rombel_id)->where('siswa_id',$s)->first()){
+                $rombel->siswa()->attach($s);
+            }
         }
         $data = [
             'tahun' => $tahun,
