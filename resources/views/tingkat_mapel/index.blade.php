@@ -1,15 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Rombel Siswa')
+@section('title', 'Tingkat Mapel '.$tahun->nama )
 
 @section('content_header')
-<h1>Rombel Siswa {{ $tahun->nama }}</h1>
+<h1>Tingkat Mapel {{ $tahun->nama }}</h1>
 @stop
 @section('content')
-{!! Form::open(['url' => 'admin/rombel_siswa', 'method' => 'POST','class'=>'form-horizontal' ]) !!}
-    
 <div class="box-body">
-    {!! Form::open(['url' => 'admin/rombel_siswa', 'method' => 'POST','class'=>'form-horizontal' ]) !!}
+    {!! Form::open(['url' => 'admin/tingkat_mapel', 'method' => 'POST','class'=>'form-horizontal' ]) !!}
     <div class="form-group">
         <label for="name" class="col-md-4 control-label">Tahun Ajaran:</label>
         <div class="col-md-6">
@@ -19,20 +17,16 @@
     {!! Form::close() !!}
 </div>
 <div class="row">
-    {!! Form::open(['url' => route('permission.rombel_siswa.index',['tahun' => $tahun->id]), 'method' => 'GET' ]) !!}
     <div class="col-md-6">
+    {!! Form::open(['url' => route('permission.tingkat_mapel.index',['tahun' => $tahun->id]), 'method' => 'GET' ]) !!}
+
         <div class="form-group">
             <label>Pilih Tingkat</label>
             {{ Form::select('tingkat_id', $tingkat ,  $tingkat_id , ['onchange' => 'this.form.submit();', 'class' => 'form-control select2 select2-hidden-accessible']) }}
         </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <label>Pilih Rombel</label>
-            {{ Form::select('rombel_id', $rombel ,  $rombel_id , ['onchange' => 'this.form.submit();', 'class' => 'form-control select2 select2-hidden-accessible']) }}
-        </div>
-    </div>
+
     {!! Form::close() !!}
+    </div>
 </div>
 <div class="row">
     
@@ -44,16 +38,16 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            {!! Form::open(['url' => route('permission.rombel_siswa.index',['tahun' => $tahun->id]), 'method' => 'POST','class'=>'form-horizontal' , 'enctype'=>'multipart/form-data']) !!}
+            {!! Form::open(['url' => route('permission.tingkat_mapel.index',['tahun' => $tahun->id]), 'method' => 'POST','class'=>'form-horizontal' , 'enctype'=>'multipart/form-data']) !!}
             {{ Form::token() }}
-            <input type="hidden" name="rombel_id" value="{{ $rombel_id }}">
+            <input type="hidden" name="tingkat_id" value="{{ $tingkat_id }}">
                 <table class="table table-condensed">
                     <tbody>
-                        @foreach ($siswa as $m)
+                        @foreach ($mapel as $m)
                             <tr>
                                 <td>
                                     <label>   
-                                        {{ Form::checkbox('siswa[]', $m->id, false) }}
+                                        {{ Form::checkbox('mapel[]', $m->id, false) }}
                                         ({{$m->kode}}) {{$m->nama}}  
                                     </label>
                                 </td>
@@ -81,16 +75,16 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            {!! Form::open(['url' => route('permission.rombel_siswa.index',['tahun' => $tahun->id]), 'method' => 'DELETE','class'=>'form-horizontal' , 'enctype'=>'multipart/form-data']) !!}
+            {!! Form::open(['url' => route('permission.tingkat_mapel.index',['tahun' => $tahun->id]), 'method' => 'DELETE','class'=>'form-horizontal' , 'enctype'=>'multipart/form-data']) !!}
             {{ Form::token() }}
-            <input type="hidden" name="rombel_id" value="{{ $rombel_id }}">
+            <input type="hidden" name="tingkat_id" value="{{ $tingkat_id }}">
                 <table class="table table-condensed">
                     <tbody>
-                        @foreach ($rombel_siswa as $m)
+                        @foreach ($mapel_tingkat as $m)
                             <tr>
                                 <td>
                                     <label>   
-                                        {{ Form::checkbox('siswa[]', $m->id, false) }}
+                                        {{ Form::checkbox('mapel[]', $m->id, false) }}
                                         ({{$m->kode}}) {{$m->nama}}  
                                     </label>
                                 </td>
@@ -101,7 +95,6 @@
                 </table>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary"><<<<</button>
-                    <a type="submit" href="{{route('permission.rombel_siswa.export_presensi',['tahun' => $tahun->id, 'rombel_id' => $rombel_id])}} "class="btn btn-primary">Export Presensi</a>
                 </div>
             {!! Form::close() !!}
         </div>

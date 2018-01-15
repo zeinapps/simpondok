@@ -12,6 +12,8 @@ use App\Models\Siswa;
 use App\Models\Rombel;
 use Alert;
 use Validator;
+use Box\Spout\Writer\WriterFactory;
+use Box\Spout\Common\Type;
 
 class RombelSiswaController extends Controller{
     use ControllerTrait;
@@ -61,6 +63,7 @@ class RombelSiswaController extends Controller{
         
         $rombel_siswa = RombelSiswa::join('siswa','rombel_siswa.siswa_id','=','siswa.id')
                 ->where('rombel_id',$rombel_id)
+                ->orderBy('siswa.nama', 'ASC')
                 ->get();
         $siswa_t = [];
         foreach ($rombel_siswa as $value) {
@@ -73,7 +76,9 @@ class RombelSiswaController extends Controller{
                     ->leftJoin( 'rombel', 'rombel_siswa.rombel_id', '=', 'rombel.id' )
                     ->where('rombel.tahun_id', $tahun_id);
                 })
-                ->where('tingkat_id',$tingkat_id)->get();
+                ->where('tingkat_id',$tingkat_id)
+                ->orderBy('siswa.nama', 'ASC')
+                ->get();
         
         $objtahun = $this->findFromCache($tahun_id, new TahunAjaran, ['m_tahun_ajaran']);
         $tahun_ajaran = TahunAjaran::orderBy('id',"DESC")->get();
@@ -142,5 +147,51 @@ class RombelSiswaController extends Controller{
             ];
         return redirect()->route('permission.rombel_siswa.index', $data);
     }
+    
+    public function export_presensi($tahun_id,$rombel_id){ 
+        
+        $rombel = Rombel::find($rombel_id);
+        $tingkat = $rombel->tingkat;
+        $title = [
+            'Nomer',
+            'NIS',
+            'Nama Lenngkap',
+            '1',
+            '2',
+            '3',
+            '4',
+            '5',
+            '6',
+            ];
+        
+        $fileName = "KELAS $tingkat->nama $rombel->nama.xlsx";
+        $writer = WriterFactory::create(Type::XLSX); // for XLSX files
+       
+        $rombel_siswa = RombelSiswa::join('siswa','rombel_siswa.siswa_id','=','siswa.id')
+                ->where('rombel_id',$rombel_id)
+                ->orderBy('siswa.nama', 'ASC')
+                ->get();
+        
+        $writer->openToBrowser($fileName); // stream data directly to the browser
+        $writer->addRow($title); // tambahkan judul dibaris pertama
+        $no=0;
+        foreach ($rombel_siswa as $data) {
+            $no++;
+            $siswa = [
+                'no' => $no,
+                'induk' => $data->no_induk,
+                'nama' => $data->nama,
+                '1' => "",
+                '2' => "",
+                '3' => "",
+                '4' => "",
+                '5' => "",
+                '6' => "",
+            ];
+            $writer->addRow($siswa); // tambakan data data per baris
+        }
+        $writer->close();
+    }
+    
     
 }

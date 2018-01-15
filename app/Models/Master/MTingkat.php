@@ -15,8 +15,14 @@ class MTingkat extends Model {
         'id', 'nama','keterangan'
     ];
 
-    public function mapels()
+    public function mapels_default()
     {
         return $this->belongsToMany('App\Models\Master\Mapel', 'm_tingkat_mapel', 'tingkat_id', 'mapel_id');
+    }
+    
+    
+    public function mapels()
+    {
+        return $this->belongsToMany('App\Models\Master\Mapel', 'tingkat_mapel', 'tingkat_id', 'mapel_id');
     }
 }

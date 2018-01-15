@@ -55,7 +55,7 @@ class MTingkatMapelController extends Controller{
         $tingkat = MTingkat::find($request->tingkat_id);
         foreach ($request->mapel as $m) {
             if(!MTingkatMapel::where('tingkat_id',$request->tingkat_id)->where('mapel_id',$m)->first()){
-                $tingkat->mapels()->attach($m);
+                $tingkat->mapels_default()->attach($m);
             }
         }
         return redirect()->route('permission.m_tingkat_mapel.index', ['tingkat_id' => $request->tingkat_id]);
@@ -75,7 +75,7 @@ class MTingkatMapelController extends Controller{
         
         $tingkat = MTingkat::find($request->tingkat_id);
         if($request->mapel){
-            $tingkat->mapels()->detach($request->mapel);
+            $tingkat->mapels_default()->detach($request->mapel);
         }
         return redirect()->route('permission.m_tingkat_mapel.index', ['tingkat_id' => $request->tingkat_id]);
     }

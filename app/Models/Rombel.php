@@ -30,5 +30,10 @@ class Rombel extends Model {
     {
         return $this->belongsToMany('App\Models\Siswa', 'rombel_siswa', 'rombel_id', 'siswa_id');
     }
+    
+    public function tingkat()
+    {
+        return $this->belongsTo(\App\Models\Master\MTingkat::class,'tingkat_id');
+    }
 
 }

@@ -217,7 +217,8 @@ return [
             'icon'    => 'share',
             'permission' => [
                 'permission.rombel.index',
-                'permission.rombel_siswa.index'
+                'permission.rombel_siswa.index',
+                'permission.tingkat_mapel.index'
             ],
             'submenu' => [
                 [
@@ -231,6 +232,12 @@ return [
                     'url'         => 'admin/rombel_siswa',
                     'icon'        => 'user',
                     'permission'  => 'permission.rombel_siswa.index',
+                ],
+                [
+                    'text'        => 'Tingkat Mapel',
+                    'url'         => 'admin/tingkat_mapel',
+                    'icon'        => 'user',
+                    'permission'  => 'permission.tingkat_mapel.index',
                 ],
             ],
         ],

@@ -21,6 +21,7 @@ class PermissionController extends Controller{
         }else{
             $model = new Permission();
         }
+        $model = $model->orderBy('name','ASC');
         $result = $this->paginateFromCache($tag, $model, $key);
         
         return view('permission/index', ['data' => $result, 's' => $s ]);
