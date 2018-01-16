@@ -18,7 +18,9 @@ class MapelController extends Controller{
         $s = '';
         if($request->s){
             $s = $request->s;
-            $model = Mapel::where('keterangan','like',"%$s%");
+            $model = Mapel::where('keterangan','like',"%$s%")
+                    ->orWhere('nama','like',"%$s%")
+                    ->orWhere('kode','like',"%$s%");
         }else{
             $model = new Mapel();
         }

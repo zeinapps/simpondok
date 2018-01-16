@@ -19,7 +19,8 @@ class TingkatController extends Controller{
         $s = '';
         if($request->s){
             $s = $request->s;
-            $model = MTingkat::where('keterangan','like',"%$s%");
+            $model = MTingkat::where('keterangan','like',"%$s%")
+                    ->orWhere('nama','like',"%$s%");
         }else{
             $model = new MTingkat();
         }

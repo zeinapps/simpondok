@@ -218,7 +218,8 @@ return [
             'permission' => [
                 'permission.rombel.index',
                 'permission.rombel_siswa.index',
-                'permission.tingkat_mapel.index'
+                'permission.tingkat_mapel.index',
+                'permission.siswa_nilai.index',
             ],
             'submenu' => [
                 [
@@ -238,6 +239,12 @@ return [
                     'url'         => 'admin/tingkat_mapel',
                     'icon'        => 'user',
                     'permission'  => 'permission.tingkat_mapel.index',
+                ],
+                [
+                    'text'        => 'Siswa Nilai',
+                    'url'         => 'admin/siswa_nilai',
+                    'icon'        => 'user',
+                    'permission'  => 'permission.siswa_nilai.index',
                 ],
             ],
         ],

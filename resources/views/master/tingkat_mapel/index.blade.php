@@ -34,12 +34,28 @@
             <input type="hidden" name="tingkat_id" value="{{ $tingkat_id }}">
                 <table class="table table-condensed">
                     <tbody>
+                        <tr >
+                            <th style="width: 10px">No</th>
+                            <th style="width: 100px">Pilih Kode</th>
+                            <th>Nama</th>
+                        </tr>
+                        <?php $nomer_urut = 1; ?>
                         @foreach ($mapel as $m)
                             <tr>
                                 <td>
                                     <label>   
+                                        {{ $nomer_urut++ }}
+                                    </label>
+                                </td>
+                                <td>
+                                    <label>   
                                         {{ Form::checkbox('mapel[]', $m->id, false) }}
-                                        ({{$m->kode}}) {{$m->nama}}  
+                                        {{$m->kode}}
+                                    </label>
+                                </td>
+                                <td>
+                                    <label>   
+                                        {{$m->nama}}  
                                     </label>
                                 </td>
                             </tr>
@@ -71,12 +87,28 @@
             <input type="hidden" name="tingkat_id" value="{{ $tingkat_id }}">
                 <table class="table table-condensed">
                     <tbody>
+                        <tr >
+                            <th style="width: 10px">No</th>
+                            <th style="width: 100px">Pilih Kode</th>
+                            <th>Nama</th>
+                        </tr>
+                        <?php $nomer_urut = 1; ?>
                         @foreach ($mapel_tingkat as $m)
                             <tr>
                                 <td>
                                     <label>   
+                                        {{ $nomer_urut++ }}
+                                    </label>
+                                </td>
+                                <td>
+                                    <label>   
                                         {{ Form::checkbox('mapel[]', $m->id, false) }}
-                                        ({{$m->kode}}) {{$m->nama}}  
+                                        {{$m->kode}}
+                                    </label>
+                                </td>
+                                <td>
+                                    <label>   
+                                        {{$m->nama}}  
                                     </label>
                                 </td>
                             </tr>

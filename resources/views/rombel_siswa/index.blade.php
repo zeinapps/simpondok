@@ -49,16 +49,31 @@
             <input type="hidden" name="rombel_id" value="{{ $rombel_id }}">
                 <table class="table table-condensed">
                     <tbody>
+                    <tr >
+                        <th style="width: 10px">No</th>
+                        <th style="width: 100px">Pilih Induk</th>
+                        <th>Nama</th>
+                    </tr>
+                    <?php $nomer_urut = 1; ?>
                         @foreach ($siswa as $m)
                             <tr>
                                 <td>
                                     <label>   
+                                        {{ $nomer_urut++ }}
+                                    </label>
+                                </td>
+                                <td>
+                                    <label>   
                                         {{ Form::checkbox('siswa[]', $m->id, false) }}
-                                        ({{$m->kode}}) {{$m->nama}}  
+                                        {{$m->nomor_induk}}
+                                    </label>
+                                </td>
+                                <td>
+                                    <label>   
+                                        {{$m->nama}}  
                                     </label>
                                 </td>
                             </tr>
-                            
                      
                         @endforeach
                         
@@ -86,12 +101,28 @@
             <input type="hidden" name="rombel_id" value="{{ $rombel_id }}">
                 <table class="table table-condensed">
                     <tbody>
+                        <tr >
+                            <th style="width: 10px">No</th>
+                            <th style="width: 100px">Pilih Induk</th>
+                            <th>Nama</th>
+                        </tr>
+                        <?php $nomer_urut = 1; ?>
                         @foreach ($rombel_siswa as $m)
                             <tr>
                                 <td>
                                     <label>   
+                                        {{ $nomer_urut++ }}
+                                    </label>
+                                </td>
+                                <td>
+                                    <label>   
                                         {{ Form::checkbox('siswa[]', $m->id, false) }}
-                                        ({{$m->kode}}) {{$m->nama}}  
+                                        {{$m->nomor_induk}}
+                                    </label>
+                                </td>
+                                <td>
+                                    <label>   
+                                        {{$m->nama}}  
                                     </label>
                                 </td>
                             </tr>

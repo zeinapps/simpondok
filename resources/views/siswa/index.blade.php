@@ -14,7 +14,7 @@
 
         <div class="box-tools">
             <form action="{{ route('permission.siswa.index') }}" method="GET">
-                <div class="input-group input-group-sm" style="width: 150px;">
+                <div class="input-group input-group-sm" style="width: 350px;">
                     <input type="text" name="s" class="form-control pull-right" placeholder="Search" value="{{ isset($s) ? $s : old('s') }}">
 
                     <div class="input-group-btn">
@@ -27,7 +27,7 @@
                         </button>
                     </div>
                     <div class="input-group-btn">
-                        <button type="button" class="btn btn-default pull-right"
+                        <button type="button" class="btn btn-info pull-right"
                                 onclick="location.href ='{{ route('permission.siswa.formupload') }}'">
                             Uploads
                         </button>

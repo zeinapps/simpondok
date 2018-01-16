@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Traits\ControllerTrait;
 use App\Models\Master\Sarpras;
-use App\Models\Master\Tingkat;
 use Alert;
 
 
@@ -63,23 +62,16 @@ class SarprasController extends Controller{
         $query = Sarpras::find($id)->toArray();
         $tagCache = ['tingkat'];
         $key = '_get_all_tingkat';
-        foreach ($this->getFromCache($tagCache, new Tingkat, $key) as $va) {
-            $tingkat [$va->id] = $va->nama;
-        }
-        return view('master/sarpras/form', array_merge($query, ['tingkat_all' => $tingkat]));
+        return view('master/sarpras/form', $query);
     }
     
     public function add(){ 
-        $tagCache = ['tingkat'];
-        $key = '_get_all_tingkat';
-        foreach ($this->getFromCache($tagCache, new Tingkat, $key) as $va) {
-            $tingkat [$va->id] = $va->nama;
-        }
-        return view('master/sarpras/form',array_merge(['tingkat_all' => $tingkat], []));
+        
+        return view('master/sarpras/form',[]);
     }
     
     public function delete($id){ 
-        $role = Role::find($id);
+        $role = Sarpras::find($id);
         if($role){
             $role->delete();
             $this->clearCache($this->tagCache);

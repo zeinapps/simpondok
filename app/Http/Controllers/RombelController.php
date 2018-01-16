@@ -18,13 +18,14 @@ class RombelController extends Controller{
     
     public function pilih(){ 
         
-        $tahun_ajaran = TahunAjaran::orderBy('id',"DESC")->get();
-        $tahun = [ '' => '--- Pilih ---'];
-        foreach ($tahun_ajaran as $value) {
-            $tahun[$value->id] = $value->nama;
-        }
-        return view('rombel/pilih_tahun', ['tahun' => $tahun]);
-        
+//        $tahun_ajaran = TahunAjaran::orderBy('id',"DESC")->get();
+//        $tahun = [ '' => '--- Pilih ---'];
+//        foreach ($tahun_ajaran as $value) {
+//            $tahun[$value->id] = $value->nama;
+//        }
+//        return view('rombel/pilih_tahun', ['tahun' => $tahun]);
+        $tahun_ajaran = TahunAjaran::orderBy('id',"DESC")->first();
+        return redirect("admin/rombel/$tahun_ajaran->id");
     }
     
     public function storepilih(Request $request){ 
@@ -46,11 +47,13 @@ class RombelController extends Controller{
         
         if($request->s){
             $s = $request->s;
-            $model = Rombel::where('keterangan','like',"%$s%");
+            $model = Rombel::where('rombel.nama','like',"%$s%")
+                    ->orwhere('rombel.keterangan','like',"%$s%");
         }else{
             $model = new Rombel();
         }
         $model = $model->where('tingkat_id',$tingkat_id);
+        $model = $model->where('tahun_id',$tahun);
         $model = $model->with('wali');
         $model = $model->leftJoin('m_tingkat','rombel.tingkat_id','=','m_tingkat.id');
         $model = $model->select('rombel.*','m_tingkat.nama as tingkat');

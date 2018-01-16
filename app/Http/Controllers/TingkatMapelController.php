@@ -17,13 +17,14 @@ class TingkatMapelController extends Controller{
     
     public function pilih(){ 
         
-        $tahun_ajaran = TahunAjaran::orderBy('id',"DESC")->get();
-        $tahun = [ '' => '--- Pilih ---'];
-        foreach ($tahun_ajaran as $value) {
-            $tahun[$value->id] = $value->nama;
-        }
-        return view('tingkat_mapel/pilih_tahun', ['tahun' => $tahun]);
-        
+//        $tahun_ajaran = TahunAjaran::orderBy('id',"DESC")->get();
+//        $tahun = [ '' => '--- Pilih ---'];
+//        foreach ($tahun_ajaran as $value) {
+//            $tahun[$value->id] = $value->nama;
+//        }
+//        return view('tingkat_mapel/pilih_tahun', ['tahun' => $tahun]);
+        $tahun_ajaran = TahunAjaran::orderBy('id',"DESC")->first();
+        return redirect("admin/tingkat_mapel/$tahun_ajaran->id");
     }
     
     public function storepilih(Request $request){ 

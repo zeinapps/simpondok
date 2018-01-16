@@ -98,23 +98,30 @@ Route::group(['prefix'=> 'admin','middleware' => ['auth','auth.route']], functio
     Route::delete('/m_tingkat_mapel', ['as' => 'permission.m_tingkat_mapel.delete', 'display_name'=>'Delete Master Tingkat Mapel', 'description'=>'Delete Master Tingkat Mapel', 'uses' => 'MTingkatMapelController@delete']);
     
     Route::get('/rombel', ['as' => 'permission.rombel.pilih', 'display_name'=>'Pilih tahun', 'description'=>'Pilih tahun', 'uses' => 'RombelController@pilih']);
-    Route::post('/rombel', ['as' => 'permission.rombel.pilihstore', 'display_name'=>'Store Pilih tahun', 'description'=>'Store Pilih tahun', 'uses' => 'RombelController@storepilih']);
+//    Route::post('/rombel', ['as' => 'permission.rombel.pilihstore', 'display_name'=>'Store Pilih tahun', 'description'=>'Store Pilih tahun', 'uses' => 'RombelController@storepilih']);
     Route::get('/rombel/{tahun}', ['as' => 'permission.rombel.index', 'display_name'=>'List Rombel', 'description'=>'Melihat Daftar Rombel', 'uses' => 'RombelController@index']);
     Route::post('/rombel/{tahun}', ['as' => 'permission.rombel.store', 'display_name'=>'Store Rombel', 'description'=>'Store Rombel', 'uses' => 'RombelController@store']);
     Route::get('/rombel/{tahun}/form', ['as' => 'permission.rombel.add', 'display_name'=>'form Add Rombel', 'description'=>'Melihat form Rombel', 'uses' => 'RombelController@add']);
     Route::get('/rombel/{tahun}/form/{id}', ['as' => 'permission.rombel.edit', 'display_name'=>'form Edit Rombel', 'description'=>'Melihat form Rombel', 'uses' => 'RombelController@edit']);
     
     Route::get('/rombel_siswa', ['as' => 'permission.rombel_siswa.pilih', 'display_name'=>'Pilih tahun Rombel Siswa', 'description'=>'Pilih tahun Rombel Siswa', 'uses' => 'RombelSiswaController@pilih']);
-    Route::post('/rombel_siswa', ['as' => 'permission.rombel_siswa.pilihstore', 'display_name'=>'Store Pilih tahun Rombel Siswa', 'description'=>'Store Pilih tahun Rombel Siswa', 'uses' => 'RombelSiswaController@storepilih']);
+//    Route::post('/rombel_siswa', ['as' => 'permission.rombel_siswa.pilihstore', 'display_name'=>'Store Pilih tahun Rombel Siswa', 'description'=>'Store Pilih tahun Rombel Siswa', 'uses' => 'RombelSiswaController@storepilih']);
     Route::get('/rombel_siswa/{tahun}', ['as' => 'permission.rombel_siswa.index', 'display_name'=>'List Master Rombel Siswa', 'description'=>'Melihat Daftar Master Rombel Siswa', 'uses' => 'RombelSiswaController@index']);
     Route::post('/rombel_siswa/{tahun}', ['as' => 'permission.rombel_siswa.store', 'display_name'=>'Store Master Rombel Siswa', 'description'=>'Store Master Rombel Siswa', 'uses' => 'RombelSiswaController@store']);
     Route::delete('/rombel_siswa/{tahun}', ['as' => 'permission.rombel_siswa.delete', 'display_name'=>'Delete Master Rombel Siswa', 'description'=>'Delete Master Rombel Siswa', 'uses' => 'RombelSiswaController@delete']);
     Route::get('/rombel_siswa/{tahun}/export_presensi/{rombel_id}', ['as' => 'permission.rombel_siswa.export_presensi', 'display_name'=>'Export Presensi', 'description'=>'PExport Presensi', 'uses' => 'RombelSiswaController@export_presensi']);
     
     Route::get('/tingkat_mapel', ['as' => 'permission.tingkat_mapel.pilih', 'display_name'=>'Pilih tahun Tingkat Mapel', 'description'=>'Pilih tahun Tingkat Mapel', 'uses' => 'TingkatMapelController@pilih']);
-    Route::post('/tingkat_mapel', ['as' => 'permission.tingkat_mapel.pilihstore', 'display_name'=>'Store Pilih tahun Tingkat Mapel', 'description'=>'Store Pilih tahun Tingkat Mapel', 'uses' => 'TingkatMapelController@storepilih']);
+//    Route::post('/tingkat_mapel', ['as' => 'permission.tingkat_mapel.pilihstore', 'display_name'=>'Store Pilih tahun Tingkat Mapel', 'description'=>'Store Pilih tahun Tingkat Mapel', 'uses' => 'TingkatMapelController@storepilih']);
     Route::get('/tingkat_mapel/{tahun}', ['as' => 'permission.tingkat_mapel.index', 'display_name'=>'List Tingkat Mapel', 'description'=>'Melihat Daftar Tingkat Mapel', 'uses' => 'TingkatMapelController@index']);
     Route::post('/tingkat_mapel/{tahun}', ['as' => 'permission.tingkat_mapel.store', 'display_name'=>'Store Tingkat Mapel', 'description'=>'Store Tingkat Mapel', 'uses' => 'TingkatMapelController@store']);
     Route::delete('/tingkat_mapel/{tahun}', ['as' => 'permission.tingkat_mapel.delete', 'display_name'=>'Delete Tingkat Mapel', 'description'=>'Delete Tingkat Mapel', 'uses' => 'TingkatMapelController@delete']);
+    
+    Route::get('/siswa_nilai', ['as' => 'permission.siswa_nilai.pilih', 'display_name'=>'Pilih tahun Siswa Nilai', 'description'=>'Pilih tahun Siswa Nilai', 'uses' => 'SiswaNilaiController@pilih']);
+//    Route::post('/siswa_nilai', ['as' => 'permission.siswa_nilai.pilihstore', 'display_name'=>'Store Pilih tahun Siswa Nilai', 'description'=>'Store Pilih tahun Siswa Nilai', 'uses' => 'SiswaNilaiController@storepilih']);
+    Route::get('/siswa_nilai/{tahun}', ['as' => 'permission.siswa_nilai.index', 'display_name'=>'List Master Siswa Nilai', 'description'=>'Melihat Daftar Master Siswa Nilai', 'uses' => 'SiswaNilaiController@index']);
+    Route::post('/siswa_nilai/{tahun}', ['as' => 'permission.siswa_nilai.store', 'display_name'=>'Store Master Siswa Nilai', 'description'=>'Store Master Siswa Nilai', 'uses' => 'SiswaNilaiController@store']);
+    Route::delete('/siswa_nilai/{tahun}', ['as' => 'permission.siswa_nilai.delete', 'display_name'=>'Delete Master Siswa Nilai', 'description'=>'Delete Master Siswa Nilai', 'uses' => 'SiswaNilaiController@delete']);
+//    Route::get('/siswa_nilai/{tahun}/export_presensi/{rombel_id}', ['as' => 'permission.siswa_nilai.export_presensi', 'display_name'=>'Export Presensi', 'description'=>'PExport Presensi', 'uses' => 'SiswaNilaiController@export_presensi']);
     
 });
